@@ -19,31 +19,34 @@ The G-League is a Fantasy Football League running in a Guillotine style - one te
 * Mongoose
 * MongoDB
 ***
-Wireframes / ERDs / Dataflows / ...
+Initial Entity Relationship Diagram
+[ERD](./G-LeagueERD.png)
+
+Initial Component Heirarchy Diagram
 
 
-***
 ### User Stories - MVP
 The user must be able to...
 * view the current rosters for all teams
 * view the results for each week
+* review the rules and scoring system
 * add players to a team's roster.
 * drop players from a team's roster.
 * alter the lineup definition as the rounds progress
 * remove teams from competition as they are eliminated each round
 * advance the week and round as appropriate
+* make a copy of rosters when the week advances
 * load the most recent results/statistics and score the week
 * post comments about the results of each week
+* view an individual player's weekly results
+* see headshots and vital stats about players (height/weight/age/etc)
+* restrict access to certain functions (loading scores, advancing week, etc) to the designated admin
 
 
 ***
 ### Future Updates / Backlog
-* support authorization to restrict access to administrative functions (loading scores, advancing week, etc)
+* support authorization 
  
 
 
-***
-### Credits
-Background Image:  
-CSS Library: [Materialize](xxx)
-API: 
+
