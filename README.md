@@ -20,9 +20,10 @@ The G-League is a Fantasy Football League running in a Guillotine style - one te
 * MongoDB
 ***
 Initial Entity Relationship Diagram
-[ERD](./G-LeagueERD.png)
+![ERD](G-LeagueERD.png)
 
 Initial Component Heirarchy Diagram
+![CHD](G-LeagueCHD.png)
 
 
 ### User Stories - MVP
