@@ -7,7 +7,7 @@
 ***
 ### Overview
 
-The G-League is a Fantasy Football League running in a Guillotine style - one team is eliminated after each two-week round - with a best-ball lineup system.  The rosters grow each week and the lineups in use grow each round.   The purpose of this application is to manage the rosters of all the teams in the league and score games and produce and display results.  The application will use the external [FantasyData](fantasydata.com) API as a source for scoring data.
+The G-League is a Fantasy Football League running in a Guillotine style - one team is eliminated after each two-week round - with a best-ball lineup system.  The rosters grow each week and the lineups in use grow each round.   The purpose of this application is to manage the rosters of all the teams in the league and score games and produce and display results.  The application will use the external [FantasyData](fantasydata.com) API as a source for scoring data and detailed player information.
 
 ***
 ### Technologies Used
@@ -48,6 +48,8 @@ The user must be able to...
 ### Future Updates / Backlog
 * support authorization 
  
-
+***
+Project Tracking
+Stories, backlog, and WIP managed at [Trello](https://trello.com/b/kJpCpP6C/g-league)
 
 
