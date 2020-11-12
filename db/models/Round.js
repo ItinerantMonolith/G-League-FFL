@@ -7,10 +7,13 @@ module.exports = new Schema(
       WR: { type: Number, required: true },
       TE: { type: Number, required: true },
       FX: { type: Number, required: true },
-      Round: { type: Number, required: true },
+      round: { type: Number, required: true },
       week1: { type: Number, required: true },
       week2: { type: Number, required: true },
-      comments: [{ type: Schema.Types.ObjectId, ref: 'comments' }]
+      comments: [{ type: Schema.Types.ObjectId, ref: 'comments' }],
+      results: [ { team: { type: Schema.Types.ObjectId, ref: 'teams' },
+                  score: { type: Number, required: true } }
+               ]
    },
    { timestamps: true }
 )

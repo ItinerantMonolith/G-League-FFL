@@ -1,0 +1,162 @@
+[
+	{
+		"name" : "Arizona Cardinals",
+		"abbreviation" : "Ari",
+		"bye" : 8
+	},
+	{
+		"name" : "Dallas Cowboys",
+		"abbreviation" : "Dal",
+		"bye" : 10
+	},
+	{
+		"name" : "New York Giants",
+		"abbreviation" : "NYG",
+		"bye" : 11
+	},
+	{
+		"name" : "Philadelphia Eagles",
+		"abbreviation" : "Phi",
+		"bye" : 9
+	},
+	{
+		"name" : "Washington FT",
+		"abbreviation" : "Was",
+		"bye" : 8
+	},
+	{
+		"name" : "Chicago Bears",
+		"abbreviation" : "Chi",
+		"bye" : 11
+	},
+	{
+		"name" : "Detroit Lions",
+		"abbreviation" : "Det",
+		"bye" : 5
+	},
+	{
+		"name" : "Green Bay Packers",
+		"abbreviation" : "GB",
+		"bye" : 5
+	},
+	{
+		"name" : "Minnesota Vikings",
+		"abbreviation" : "Min",
+		"bye" : 7
+	},
+	{
+		"name" : "Tampa Bay Buccaneers",
+		"abbreviation" : "TB",
+		"bye" : 13
+	},
+	{
+		"name" : "Atlanta Falcons",
+		"abbreviation" : "Atl",
+		"bye" : 10
+	},
+	{
+		"name" : "Los Angeles Rams",
+		"abbreviation" : "LAR",
+		"bye" : 9
+	},
+	{
+		"name" : "New Orleans Saints",
+		"abbreviation" : "NO",
+		"bye" : 6
+	},
+	{
+		"name" : "San Francisco 49ers",
+		"abbreviation" : "SF",
+		"bye" : 11
+	},
+	{
+		"name" : "Buffalo Bills",
+		"abbreviation" : "Buf",
+		"bye" : 11
+	},
+	{
+		"name" : "Indianapolis Colts",
+		"abbreviation" : "Ind",
+		"bye" : 7
+	},
+	{
+		"name" : "Miami Dolphins",
+		"abbreviation" : "Mia",
+		"bye" : 11
+	},
+	{
+		"name" : "New England Patriots",
+		"abbreviation" : "NE",
+		"bye" : 6
+	},
+	{
+		"name" : "New York Jets",
+		"abbreviation" : "NYJ",
+		"bye" : 11
+	},
+	{
+		"name" : "Cincinnati Bengals",
+		"abbreviation" : "Cin",
+		"bye" : 9
+	},
+	{
+		"name" : "Baltimore Ravens",
+		"abbreviation" : "Bal",
+		"bye" : 7
+	},
+	{
+		"name" : "Tennessee Titans",
+		"abbreviation" : "Ten",
+		"bye" : 4
+	},
+	{
+		"name" : "Pittsburgh Steelers",
+		"abbreviation" : "Pit",
+		"bye" : 4
+	},
+	{
+		"name" : "Denver Broncos",
+		"abbreviation" : "Den",
+		"bye" : 8
+	},
+	{
+		"name" : "Kansas City Chiefs",
+		"abbreviation" : "KC",
+		"bye" : 10
+	},
+	{
+		"name" : "Las Vegas Raiders",
+		"abbreviation" : "LV",
+		"bye" : 6
+	},
+	{
+		"name" : "Los Angeles Chargers",
+		"abbreviation" : "LAC",
+		"bye" : 10
+	},
+	{
+		"name" : "Seattle Seahawks",
+		"abbreviation" : "Sea",
+		"bye" : 6
+	},
+	{
+		"name" : "Carolina Panthers",
+		"abbreviation" : "Car",
+		"bye" : 13
+	},
+	{
+		"name" : "Jacksonville Jaguars",
+		"abbreviation" : "JAX",
+		"bye" : 7
+	},
+	{
+		"name" : "Cleveland Browns",
+		"abbreviation" : "Cle",
+		"bye" : 9
+	},
+	{
+		"name" : "Houston Texans",
+		"abbreviation" : "Hou",
+		"bye" : 8
+	}
+]

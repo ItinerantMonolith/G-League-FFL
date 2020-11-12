@@ -1,14 +1,15 @@
-const { Schema} = require('mongoose')
+const { Schema } = require('mongoose')
 
 module.exports = new Schema (
    {
-      RushYds: { type: Number, required: true, default: 0 },
-      RushTD: { type: Number, required: true, default: 0 },
-      RecYds: { type: Number, required: true, default: 0 },
-      RecTD: { type: Number, required: true, default: 0 },
-      PassYds: { type: Number, required: true, default: 0 },
-      PassTD: { type: Number, required: true, default: 0 },
-      Fumbles: { type: Number, required: true, default: 0 },
-      Interceptions: { type: Number, required: true, default: 0 },
+      rushYds: { type: Number, required: true, default: 0 },
+      rushTD: { type: Number, required: true, default: 0 },
+      recYds: { type: Number, required: true, default: 0 },
+      recTD: { type: Number, required: true, default: 0 },
+      passYds: { type: Number, required: true, default: 0 },
+      passTD: { type: Number, required: true, default: 0 },
+      fumbles: { type: Number, required: true, default: 0 },
+      interceptions: { type: Number, required: true, default: 0 },
+      week: { type: Number, required: true }
    }
 )

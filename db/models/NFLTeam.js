@@ -10,12 +10,14 @@ module.exports = new Schema(
          type: Number,
          required: true
       },
-      abbr: {
+      abbreviation: {
          type: String,
          required: true
       },
-      Logo: {
+      profile: {
          type: String,
          required: true
       }
    }
+)
+
