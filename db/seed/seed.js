@@ -42,7 +42,7 @@ const seed = async () => {
    const nflTeams = await NFLTeam.find()
 
    players.forEach((e, i) => {
-      e['stats'] = new Array(17).fill({ week: i })
+      // e['stats'] = new Array(17).fill({ week: 0 }).map( (stat,idx) => ({ ...stat, week: idx }))
       e.team = nflTeams.find((n) => n.abbreviation === e.abbreviation)
       e.sortPos = e.position === 'TE' ? 'ZTE' : e.position
    })

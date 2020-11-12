@@ -1,41 +1,39 @@
 const { Schema } = require('mongoose')
 // const { Stats } = require('./Stats')
 
-const Stats = new Schema(
-   {
-      rushYds: { type: Number, required: true, default: 0 },
-      rushTD: { type: Number, required: true, default: 0 },
-      recYds: { type: Number, required: true, default: 0 },
-      recTD: { type: Number, required: true, default: 0 },
-      passYds: { type: Number, required: true, default: 0 },
-      passTD: { type: Number, required: true, default: 0 },
-      fumbles: { type: Number, required: true, default: 0 },
-      interceptions: { type: Number, required: true, default: 0 },
-      week: { type: Number, required: true }
-   }
-)
+const Stats = new Schema({
+   rushYds: { type: Number, required: true, default: 0 },
+   rushTD: { type: Number, required: true, default: 0 },
+   recYds: { type: Number, required: true, default: 0 },
+   recTD: { type: Number, required: true, default: 0 },
+   passYds: { type: Number, required: true, default: 0 },
+   passTD: { type: Number, required: true, default: 0 },
+   fumbles: { type: Number, required: true, default: 0 },
+   interceptions: { type: Number, required: true, default: 0 },
+   week: { type: Number, required: true },
+})
 
 module.exports = new Schema(
    {
       name: {
          type: String,
-         required: true
+         required: true,
       },
       position: {
          type: String,
-         required: true
+         required: true,
       },
       sortPos: {
          type: String,
-         required: true
+         required: true,
       },
       team: {
          type: Schema.Types.ObjectId,
-         ref: 'NFLTeam'
+         ref: 'NFLTeam',
       },
       nflData_ID: {
          type: Number,
-         required: true
+         required: true,
       },
       stats: [Stats],
       height: { type: String, required: false },
