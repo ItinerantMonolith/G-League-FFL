@@ -7,7 +7,7 @@ const FD_BASE =
 const FD_KEY = process.env.FD_KEY
 
 const GetLeague = async (req, resp) => {
-   const league = await League.find()
+   const league = await League.findOne()
    resp.send(league)
 }
 

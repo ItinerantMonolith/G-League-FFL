@@ -2,13 +2,15 @@ import React from 'react'
 import Nav from './Nav'
 import '../styles/layout.css'
 
-export default ({ children, authenticated, currentUser }) => (
-  <div >
+const Layout = ({ children }) => (
+   <div >
      <section className='landing'>
         <h1> Welcome to the G-League</h1>
-        <h3> Guillotine style Fantasy Football for those who aught to know better.</h3>
+        <h4> Guillotine style Fantasy Football for those who should know better.</h4>
      </section>
     <Nav/>
     {children}
   </div>
 )
+
+export default Layout

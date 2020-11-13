@@ -3,6 +3,7 @@ const { League, Team, NFLTeam, Player, Roster, Round } = require('../schema')
 const bcrypt = require('bcrypt')
 const players = require('./PlayerData.json')
 const nflData = require('./NFLTeamData.json')
+const rosterData = require('./RosterData.json')
 
 const teamNames = [
    'FLYNN',
@@ -26,6 +27,26 @@ const loadTeams = async () =>
       })
    )
 
+const getRosterDataByTeam = async (teamName) => {
+   const newRoster = []
+   const players = rosterData.filter((e) => e.team === teamName)
+
+   for (let i=0; i< players.length; i++ ) {
+      try {
+         const player = await Player.findOne({ nflData_ID: players[i].nflData_ID })
+         if ( player )
+            newRoster.push(player)
+         else 
+            console.log ("Could not find", players[i].team, players[i].nflData_ID)
+      } catch (err) {
+         console.log('error in getRosterDataByTeam', err)
+      }
+   }
+
+   // console.log('in getRsoterDataByTeam', newRoster)
+   return newRoster
+}
+
 const seed = async () => {
    await connection.connect
 
@@ -42,7 +63,6 @@ const seed = async () => {
    const nflTeams = await NFLTeam.find()
 
    players.forEach((e, i) => {
-      // e['stats'] = new Array(17).fill({ week: 0 }).map( (stat,idx) => ({ ...stat, week: idx }))
       e.team = nflTeams.find((n) => n.abbreviation === e.abbreviation)
       e.sortPos = e.position === 'TE' ? 'ZTE' : e.position
    })
@@ -51,15 +71,20 @@ const seed = async () => {
 
    // load the teams
    const teams = await loadTeams()
-   console.log(teams)
    await Team.insertMany(teams)
 
    // now create the starting roster records for the teams
    const getTeams = await Team.find()
+
    const rosters = getTeams.map((e) => ({ team: e, week: 4, players: [] }))
+   for (let i = 0; i < rosters.length; i++) {
+      const newRoster = await getRosterDataByTeam(rosters[i].team.name)
+      rosters[i].players = newRoster
+   }
+
    await Roster.insertMany(rosters)
 
-   const results = getTeams.map( e => ( { team: e, score: 0 } ) )
+   const results = getTeams.map((e) => ({ team: e, score: 0 }))
 
    // then build the Round and attach the results
    await Round.create({
@@ -72,7 +97,7 @@ const seed = async () => {
       week1: 4,
       week2: 5,
       comments: [],
-      results: results
+      results: results,
    })
 
    await connection.disconnect
