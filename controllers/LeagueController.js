@@ -128,8 +128,17 @@ const AdvanceRound = async( req, resp) => {
 
 
 const UpdateFormation = async ( req, resp) => {
-   // add the req.params.position to the current round's formation
-
+   // we should only be updating the formation for the last round.
+   const league = await League.findOne()
+   const round = await Round.findOne( { round: league.currentRound } )
+   await Round.updateOne(
+      { _id: round },
+      { 
+         [req.params.position]: round[req.params.position] + 1
+      },
+      { upsert: true, new: true }
+   )
+   resp.send ( round )
 }
 
 

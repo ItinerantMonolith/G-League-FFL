@@ -11,9 +11,6 @@ const app = express();
 
 // Require Middleware
 
-
-// Require Middleware
-
 // Initialize Middlewarenpx dt
 app.use(logger('dev'));
 // app.use(helmet())       enable for authentication
@@ -30,8 +27,7 @@ app.listen(PORT, async () => {
     try {
         await connection;
         console.log('Database Connected');
-        console.log();
     } catch (error) {
-        throw new Error('Connection Error');
+        throw new Error('Connection Error', error);
     }
 });
