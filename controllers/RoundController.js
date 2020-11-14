@@ -32,9 +32,29 @@ const GetRound = async ( req, resp ) => {
             return 1
       }
    })
-   resp.send ( round )
+   resp.json( round )
 }
 
+const GetTeams = async (req, resp) => {
+   console.log ( 'in RoundController.GetTeams')
+   // return all teams in the given round
+   const round = await Round.findOne( { round: req.params.round_id }).populate([
+       { 
+          path: 'results',
+          populate: {
+             path: 'team',
+             model: 'teams',
+             select:'_id name',
+          }
+       }
+   ])
+   
+   resp.json(round.results)
+}
+
+
+
 module.exports = {
-   GetRound
+   GetRound,
+   GetTeams
 }

@@ -11,6 +11,13 @@ const GetLeague = async (req, resp) => {
    resp.send(league)
 }
 
+const getRoundByWeek = async (week) => {
+   const round = await Round.findOne({
+      $or: [{ week1: week }, { week2: week }],
+   })
+   return round
+}
+
 const scoreStats = (stats) => {
    return (
       stats.RushingYards +
@@ -44,6 +51,7 @@ updateResults = async (round) => {
 posIdx = (pos) => ['QB', 'RB', 'WR', 'TE'].indexOf(pos)
 
 scoreWeek = async (week, round) => {
+   console.log('in scoreWeek')
    const posCnt = [round.QB, round.RB, round.WR, round.TE, round.FX]
    const rosters = await Roster.find({ week: week }).populate([
       {
@@ -144,9 +152,7 @@ const LoadScores = async (req, resp) => {
    }
 
    // player stats are loaded and scored...now we need to actually score the rosters.
-   const round = await Round.findOne({
-      $or: [{ week1: week }, { week2: week }],
-   })
+   const round = await getRoundByWeek( week )
 
    await scoreWeek(week, round)
    await updateResults(round)
@@ -154,59 +160,47 @@ const LoadScores = async (req, resp) => {
    resp.send(`Stats Loaded for week ${week}`)
 }
 
+
 const AdvanceWeek = async (req, resp) => {
-   const league = await League.findOne()
-   await League.updateOne(
-      { _id: league._id },
-      {
-         currentWeek: league.currentWeek + 1,
-      },
-      { new: true }
-   )
+   // advance league.currentWeek 
+   // if it's a new round advance league.currentRound
+   // create new roster records - if it's a new round, DO NOT create one for the last team
+   // if it's a new round, create a new Round record, DO NOT create a results record for the last team.
+   console.log ( 'in AdvanceWeek')
+   let league = await League.findOne()
+   const lastWeek = league.currentWeek
+   const lastRound = await getRoundByWeek( league.currentWeek )
+   
+   console.log ( 'lastWeek', lastWeek, 'lastRound.round', lastRound.round )
+   const thisWeek = lastWeek + 1
+   let thisRound = lastRound.round
+   let results = lastRound.results
+   if ( lastRound.week2 === lastWeek ) {
+      // advance the round
+      thisRound++
+      // which team was in last? we need to drop that one....
+      lastRound.results.sort((a, b) => (a.score < b.score ? 1 : -1))
+      lastRound.results.pop()
 
-   resp.send(league)
-}
-
-const AdvanceRound = async (req, resp) => {
-   // advance league.currentWeek and league.currentRound
-   const league = await League.findOne()
-   const prevWeek = league.currentWeek
-   const prevRound = league.currentRound
-   const thisWeek = prevWeek + 1
-   const thisRound = prevRound + 1
-   await League.updateOne(
-      { _id: league._id },
-      {
-         currentWeek: thisWeek,
-         currentRound: thisRound,
-      },
-      { new: true }
-   )
-
-   // create a new Round record with all the same data but skip the losing team in the results, set all results to 0
-   const lastRound = await Round.findOne({ round: prevRound })
-
-   // which team was in last? we need to drop that one....
-   lastRound.results.sort((a, b) => (a.score < b.score ? 1 : -1))
-   lastRound.results.pop()
-
-   const results = lastRound.results.map((e) => ({ team: e.team, score: 0 }))
-   const newRound = await Round.create({
-      QB: lastRound.QB,
-      RB: lastRound.RB,
-      WR: lastRound.WR,
-      TE: lastRound.TE,
-      FX: lastRound.FX,
-      round: thisRound,
-      week1: thisWeek,
-      week2: thisWeek + 1,
-      comments: [],
-      results: results,
-   })
+      // create the new results, then create the new round
+      results = lastRound.results.map((e) => ({ team: e.team, score: 0 }))
+      const newRound = await Round.create({
+         QB: lastRound.QB,
+         RB: lastRound.RB,
+         WR: lastRound.WR,
+         TE: lastRound.TE,
+         FX: lastRound.FX,
+         round: thisRound,
+         week1: thisWeek,
+         week2: thisWeek + 1,
+         comments: [],
+         results: results,
+      })
+   }
 
    // rosters into the new week
-   lastRound.results.forEach(async (e) => {
-      const lastRoster = await Roster.findOne({ team: e.team, week: prevWeek })
+   results.forEach(async (e) => {
+      const lastRoster = await Roster.findOne({ team: e.team, week: lastWeek })
       await Roster.create({
          team: e.team,
          week: thisWeek,
@@ -215,6 +209,15 @@ const AdvanceRound = async (req, resp) => {
          actions: [],
       })
    })
+
+   await League.updateOne(
+      { _id: league._id },
+      {
+         currentWeek: thisWeek,
+         currentRound: thisRound,
+      },
+      { new: true }
+   )
 
    league = await League.findOne()
    resp.send(league)
@@ -238,6 +241,5 @@ module.exports = {
    GetLeague,
    LoadScores,
    AdvanceWeek,
-   AdvanceRound,
-   UpdateFormation,
+   UpdateFormation
 }

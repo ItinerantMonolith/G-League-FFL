@@ -28,6 +28,10 @@ module.exports = new Schema(
          type: String,
          required: true,
       },
+      nflTeam: {
+         type: String,
+         required: true
+      },
       team: {
          type: Schema.Types.ObjectId,
          ref: 'NFLTeam',

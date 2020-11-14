@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
-import { __GetLeague, __GetRound, __ScoreWeek } from '../services/LeagueService'
+import {
+   __GetLeague,
+   __GetRound,
+   __ScoreWeek,
+   __AdvanceWeek,
+} from '../services/LeagueService'
 import AddPlayer from './AddPlayer'
 import DropPlayer from './DropPlayer'
-
+import '../styles/admin.css'
 
 export default class Admin extends Component {
    constructor() {
@@ -11,7 +16,7 @@ export default class Admin extends Component {
          currentRound: 0,
          currentWeek: 0,
          teams: [],
-         mode: 0
+         mode: 0,
       }
    }
 
@@ -22,54 +27,55 @@ export default class Admin extends Component {
 
    loadLeague = async () => {
       const leagueInfo = await __GetLeague()
-      
+
       // now get the teams and scores for this week
-      const round = await __GetRound( leagueInfo.currentRound )
+      const round = await __GetRound(leagueInfo.currentRound)
       const teams = []
-      round.results.forEach( e => teams.push(e.team) )
-      await this.setState( { 
+      round.results.forEach((e) => teams.push(e.team))
+      await this.setState({
          currentRound: leagueInfo.currentRound,
          currentWeek: leagueInfo.currentWeek,
-         teams: teams
+         teams: teams,
       })
    }
 
-   handleAdvanceWeek = () => {
-
-   }
-
-   handleLoadStats = async () => {
-      if ( window.confirm("Do you really want to reload stats and rescore?" ) ) {
-         const res = await __ScoreWeek ( this.state.currentWeek )
-         alert ( res )
+   handleAdvanceWeek = async () => {
+      if (window.confirm('Do you really want to advance the week?')) {
+         const res = await __AdvanceWeek()
+         alert ("Complete")
+         console.log ( res )
       }
    }
 
-   handleAdvanceRound= () => {
-
+   handleLoadStats = async () => {
+      if (window.confirm('Do you really want to reload stats and rescore?')) {
+         const res = await __ScoreWeek(this.state.currentWeek)
+         alert(res)
+      }
    }
 
-   setAddPlayers = () => this.setState( { mode: 1 } )
-   setDropPlayers = () => this.setState( { mode: 2 })
+   setAddPlayers = () => {
+      this.setState({ mode: 1 })
+   }
+
+   setDropPlayers = () => this.setState({ mode: 2 })
 
    render() {
       return (
-            <div>
-               <h3>Admin Functions</h3>
-               <button onClick={this.handleLoadStats}>Load Stats</button>
-               <button onClick={this.handleAdvanceWeek}>Advance Week</button>
-               <button onClick={this.handleAdvanceRound}>Advance Round</button>
-               <button onClick={this.setAddPlayers}>Add Players</button>
-               <button onClick={this.setDropPlayers}>Drop Players</button>
-               { this.state.mode === 0 ? '' : 
-                  this.state.mode === 1 ? (
-                     <AddPlayer week={this.state.currentWeek} />
-                  ) : (
-                     <DropPlayer week={this.state.currentWeek} />
-                  )
-               }        
-            </div>
-
+         <div>
+            <h3>Admin Functions</h3>
+            <button onClick={this.handleLoadStats}>Load Stats</button>
+            <button onClick={this.handleAdvanceWeek}>Advance Week</button>
+            <button onClick={this.setAddPlayers}>Add Players</button>
+            <button onClick={this.setDropPlayers}>Drop Players</button>
+            {this.state.mode === 0 ? (
+               ''
+            ) : this.state.mode === 1 ? (
+               <AddPlayer week={this.state.currentWeek} round={this.state.currentRound} />
+            ) : (
+               <DropPlayer week={this.state.currentWeek} round={this.state.currentRound}/>
+            )}
+         </div>
       )
    }
 }

@@ -3,7 +3,7 @@ const PlayerController = require('../controllers/PlayerController')
 
 
 Router.get('/:player_id', PlayerController.GetPlayer)
-Router.get('/', PlayerController.GetPlayers)
+Router.get('/:nflTeam/:position', PlayerController.GetPlayers)
 
 
 module.exports = Router
