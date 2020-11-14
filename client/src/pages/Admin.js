@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { __GetLeague, __GetRound } from '../services/LeagueService'
+import { __GetLeague, __GetRound, __ScoreWeek } from '../services/LeagueService'
 import AddPlayer from './AddPlayer'
 import DropPlayer from './DropPlayer'
 
@@ -22,11 +22,9 @@ export default class Admin extends Component {
 
    loadLeague = async () => {
       const leagueInfo = await __GetLeague()
-      console.log ( leagueInfo )
       
       // now get the teams and scores for this week
       const round = await __GetRound( leagueInfo.currentRound )
-      console.log ( round )
       const teams = []
       round.results.forEach( e => teams.push(e.team) )
       await this.setState( { 
@@ -40,8 +38,11 @@ export default class Admin extends Component {
 
    }
 
-   handleLoadStats = () => {
-
+   handleLoadStats = async () => {
+      if ( window.confirm("Do you really want to reload stats and rescore?" ) ) {
+         const res = await __ScoreWeek ( this.state.currentWeek )
+         alert ( res )
+      }
    }
 
    handleAdvanceRound= () => {

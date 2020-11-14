@@ -11,6 +11,7 @@ const Stats = new Schema({
    fumbles: { type: Number, required: true, default: 0 },
    interceptions: { type: Number, required: true, default: 0 },
    week: { type: Number, required: true },
+   points: { type: Number, required: true}
 })
 
 module.exports = new Schema(

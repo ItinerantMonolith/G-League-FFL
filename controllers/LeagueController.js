@@ -11,17 +11,103 @@ const GetLeague = async (req, resp) => {
    resp.send(league)
 }
 
+const scoreStats = (stats) => {
+   return (
+      stats.RushingYards +
+      stats.ReceivingYards +
+      stats.PassingYards * 0.5 +
+      (stats.RushingTouchdowns + stats.ReceivingTouchdowns) * 40 +
+      stats.PassingTouchdowns * 20 -
+      (stats.FumblesLost + stats.PassingInterceptions) * 20
+   )
+}
+
+updateResults = async (round) => {
+   const results = round.results
+
+   const newResults = []
+   for (let i=0; i< results.length; i++ ) {
+      let rosters = await Roster.find( { team: results[i].team, week: { $in: [ round.week1, round.week2 ] } } ).select('score')
+      newResults.push ( { team: results[i].team, score: rosters.reduce( (acc, e) => { return acc + e.score }, 0) } )
+   }
+   await Round.updateOne(
+      { _id: round },
+      { $pull: { results: {} } }
+   )
+   await Round.updateOne(
+      { _id: round },
+      { $push: { results: newResults } }
+   )
+}
+
+
+posIdx = (pos) => ['QB', 'RB', 'WR', 'TE'].indexOf(pos)
+
+scoreWeek = async (week, round) => {
+   const posCnt = [round.QB, round.RB, round.WR, round.TE, round.FX]
+   const rosters = await Roster.find({ week: week }).populate([
+      {
+         path: 'players',
+         model: 'players',
+      },
+   ])
+
+   for (let i = 0; i < rosters.length; i++) {
+      let score = 0
+      let posScores = [[], [], [], []]
+      let players = rosters[i].players
+      for (let j = 0; j < players.length; j++) {
+         let player = players[j]
+         let weekStats = player.stats.find((e) => e.week === parseInt(week))
+         if (weekStats) {
+            // now add the player's points to the correct position array
+            posScores[posIdx(player.position)].push(weekStats.points)
+         } else {
+            console.log('no stats found...make some')
+            const newStats = await Player.updateOne(
+               { _id: player },
+               {
+                  $push: {
+                     stats: { week: week, points: 0 },
+                  },
+               }
+            )
+         }
+      }
+
+      // now for each position, we need to take the top N scores, where N is posCnt[position]
+      let flex = []
+      for (let i = 0; i < 4; i++) {
+         posScores[i].sort((a, b) => a - b)
+
+         for (let j = 0; j < posCnt[i]; j++) {
+            if (posScores[i].length > 0) 
+               score = score + posScores[i].pop()
+         }
+         // now we have flex, take all the leftovers and sort them
+         if ( i > 0 )
+            flex = [...flex, ...posScores[i]].sort( ( a,b) => a-b )
+      }
+      // .. and add on the top flex values
+      for (let i=0; i < posCnt[4]; i++)
+         score = score + flex.pop()
+
+      await Roster.updateOne({ _id: rosters[i]._id }, { score: score })
+   }
+}
+
 const LoadScores = async (req, resp) => {
    const { week } = req.params
-   const url = `${FD_BASE}${week}?key=${FD_KEY}`
-   console.log(url)
-   let response = await axios.get(url)
+   let response = await axios.get(`${FD_BASE}${week}?key=${FD_KEY}`)
 
    const playerStats = response.data
    const players = await Player.find()
-   players.forEach(async (player) => {
+   for (let i = 0; i < players.length; i++) {
+      // players.forEach(async (player) => {
+      let player = players[i]
       let stats = playerStats.find((e) => e.PlayerID === player.nflData_ID)
       if (stats) {
+         let score = scoreStats(stats)
          // we have stats for the player, so lets do an update.
          const thePlayer = await Player.findById(player._id)
          // if we already had stats for this week, we need to remove them...
@@ -46,58 +132,66 @@ const LoadScores = async (req, resp) => {
                      passYds: stats.PassingYards,
                      passTD: stats.PassingTouchdowns,
                      fumbles: stats.FumblesLost,
-                     interceptions: stats.Interceptions,
+                     interceptions: stats.PassingInterceptions,
                      week: week,
+                     points: score,
                   },
                },
             },
             { upsert: true, new: true }
          )
       }
+   }
+
+   // player stats are loaded and scored...now we need to actually score the rosters.
+   const round = await Round.findOne({
+      $or: [{ week1: week }, { week2: week }],
    })
+
+   await scoreWeek(week, round)
+   await updateResults(round)
+
    resp.send(`Stats Loaded for week ${week}`)
 }
 
-
 const AdvanceWeek = async (req, resp) => {
    const league = await League.findOne()
-   await League.updateOne( 
+   await League.updateOne(
       { _id: league._id },
-      { 
-         currentWeek: league.currentWeek + 1
+      {
+         currentWeek: league.currentWeek + 1,
       },
       { new: true }
    )
 
-   resp.send( league )
+   resp.send(league)
 }
 
-
-const AdvanceRound = async( req, resp) => {
+const AdvanceRound = async (req, resp) => {
    // advance league.currentWeek and league.currentRound
    const league = await League.findOne()
    const prevWeek = league.currentWeek
    const prevRound = league.currentRound
    const thisWeek = prevWeek + 1
    const thisRound = prevRound + 1
-   await League.updateOne( 
+   await League.updateOne(
       { _id: league._id },
-      { 
+      {
          currentWeek: thisWeek,
-         currentRound: thisRound
+         currentRound: thisRound,
       },
       { new: true }
-   ) 
+   )
 
    // create a new Round record with all the same data but skip the losing team in the results, set all results to 0
-   const lastRound = await Round.findOne( { round: prevRound } )
+   const lastRound = await Round.findOne({ round: prevRound })
 
    // which team was in last? we need to drop that one....
-   lastRound.results.sort( (a, b) => a.score < b.score ? 1 : -1 )
+   lastRound.results.sort((a, b) => (a.score < b.score ? 1 : -1))
    lastRound.results.pop()
 
-   const results = lastRound.results.map( e => ( { team: e.team, score: 0 } ) )
-   const newRound = await Round.create( {
+   const results = lastRound.results.map((e) => ({ team: e.team, score: 0 }))
+   const newRound = await Round.create({
       QB: lastRound.QB,
       RB: lastRound.RB,
       WR: lastRound.WR,
@@ -107,45 +201,43 @@ const AdvanceRound = async( req, resp) => {
       week1: thisWeek,
       week2: thisWeek + 1,
       comments: [],
-      results: results
+      results: results,
    })
 
-// rosters into the new week
-   lastRound.results.forEach( async (e) => {
-      const lastRoster = await Roster.findOne( { team: e.team, week: prevWeek } )
-      await Roster.create( {
+   // rosters into the new week
+   lastRound.results.forEach(async (e) => {
+      const lastRoster = await Roster.findOne({ team: e.team, week: prevWeek })
+      await Roster.create({
          team: e.team,
          week: thisWeek,
          score: 0,
          players: lastRoster.players,
-         actions: []
+         actions: [],
       })
    })
 
    league = await League.findOne()
-   resp.send( league )
+   resp.send(league)
 }
 
-
-const UpdateFormation = async ( req, resp) => {
+const UpdateFormation = async (req, resp) => {
    // we should only be updating the formation for the last round.
    const league = await League.findOne()
-   const round = await Round.findOne( { round: league.currentRound } )
+   const round = await Round.findOne({ round: league.currentRound })
    await Round.updateOne(
       { _id: round },
-      { 
-         [req.params.position]: round[req.params.position] + 1
+      {
+         [req.params.position]: round[req.params.position] + 1,
       },
       { upsert: true, new: true }
    )
-   resp.send ( round )
+   resp.send(round)
 }
-
 
 module.exports = {
    GetLeague,
    LoadScores,
    AdvanceWeek,
    AdvanceRound,
-   UpdateFormation
+   UpdateFormation,
 }

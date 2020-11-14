@@ -12,7 +12,7 @@ const app = express();
 // Require Middleware
 
 // Initialize Middlewarenpx dt
-app.use(logger('dev'));
+// app.use(logger('dev'));
 // app.use(helmet())       enable for authentication
 app.use(cors())
 app.use(bodyParser.json())
