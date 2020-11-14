@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/rules.css'
 
 const Rules = () => {
    return (
@@ -29,6 +30,18 @@ const Rules = () => {
             At the beginning of each Round, remaining teams can vote on a new
             position to add to the lineups going forward.
          </p>
+         <div className="scoring">
+         <h3>Scoring</h3>
+         <div className="scoringDetail"><div>Rushing Yards</div><div>1 / yard</div></div>
+         <div className="scoringDetail"><div>Receiving Yards</div><div>1 / yard</div></div>
+         <div className="scoringDetail"><div>Passing Yards</div><div>0.5 / yard</div></div>
+         <div className="scoringDetail"><div>Rushing TDs</div><div>40 / TD</div></div>
+         <div className="scoringDetail"><div>Receiving TDs</div><div>40 / TD</div></div>
+         <div className="scoringDetail"><div>Passing TDs</div><div>20 / TD</div></div>
+         <div className="scoringDetail"><div>Fumbles</div><div>-20 / Fum</div></div>
+         <div className="scoringDetail"><div>Interceptions</div><div>-20 / Int</div></div>
+         </div>
+
       </div>
    )
 }

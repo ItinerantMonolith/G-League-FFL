@@ -52,7 +52,7 @@ posIdx = (pos) => ['QB', 'RB', 'WR', 'TE'].indexOf(pos)
 
 scoreWeek = async (week, round) => {
    console.log('in scoreWeek')
-   const posCnt = [round.QB, round.RB, round.WR, round.TE, round.FX]
+   const posCnt = round.formation
    const rosters = await Roster.find({ week: week }).populate([
       {
          path: 'players',
@@ -185,14 +185,10 @@ const AdvanceWeek = async (req, resp) => {
       // create the new results, then create the new round
       results = lastRound.results.map((e) => ({ team: e.team, score: 0 }))
       const newRound = await Round.create({
-         QB: lastRound.QB,
-         RB: lastRound.RB,
-         WR: lastRound.WR,
-         TE: lastRound.TE,
-         FX: lastRound.FX,
          round: thisRound,
          week1: thisWeek,
          week2: thisWeek + 1,
+         formation: lastRound.formation,
          comments: [],
          results: results,
       })
@@ -223,23 +219,9 @@ const AdvanceWeek = async (req, resp) => {
    resp.send(league)
 }
 
-const UpdateFormation = async (req, resp) => {
-   // we should only be updating the formation for the last round.
-   const league = await League.findOne()
-   const round = await Round.findOne({ round: league.currentRound })
-   await Round.updateOne(
-      { _id: round },
-      {
-         [req.params.position]: round[req.params.position] + 1,
-      },
-      { upsert: true, new: true }
-   )
-   resp.send(round)
-}
 
 module.exports = {
    GetLeague,
    LoadScores,
-   AdvanceWeek,
-   UpdateFormation
+   AdvanceWeek
 }

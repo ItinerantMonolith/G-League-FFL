@@ -7,6 +7,8 @@ import {
 } from '../services/LeagueService'
 import AddPlayer from './AddPlayer'
 import DropPlayer from './DropPlayer'
+import ChangeFormation from './ChangeFormation'
+
 import '../styles/admin.css'
 
 export default class Admin extends Component {
@@ -54,13 +56,27 @@ export default class Admin extends Component {
       }
    }
 
-   setAddPlayers = () => {
-      this.setState({ mode: 1 })
-   }
+   setAddPlayers = () => this.setState({ mode: 1 }) 
 
    setDropPlayers = () => this.setState({ mode: 2 })
 
+   changeLineup = () =>  this.setState({ mode: 3 }) 
+
    render() {
+      let content = ''
+      switch ( this.state.mode ) {
+         case 1:
+            content = (<AddPlayer week={this.state.currentWeek} round={this.state.currentRound} />)
+            break;
+         
+         case 2:
+            content = (<DropPlayer week={this.state.currentWeek} round={this.state.currentRound} />)
+            break;
+         
+         case 3:
+            content = (<ChangeFormation week={this.state.currentWeek} round={this.state.currentRound} />)
+            break;
+      }
       return (
          <div>
             <h3>Admin Functions</h3>
@@ -68,13 +84,16 @@ export default class Admin extends Component {
             <button onClick={this.handleAdvanceWeek}>Advance Week</button>
             <button onClick={this.setAddPlayers}>Add Players</button>
             <button onClick={this.setDropPlayers}>Drop Players</button>
-            {this.state.mode === 0 ? (
+            <button onClick={this.changeLineup}>Change Formation</button>
+            {content}
+
+            {/* this.state.mode === 0 ? (
                ''
             ) : this.state.mode === 1 ? (
                <AddPlayer week={this.state.currentWeek} round={this.state.currentRound} />
             ) : (
                <DropPlayer week={this.state.currentWeek} round={this.state.currentRound}/>
-            )}
+            ) */}
          </div>
       )
    }

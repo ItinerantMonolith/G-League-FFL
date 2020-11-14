@@ -1,4 +1,4 @@
-const { Round } = require ('../db/schema')
+const { Round, League } = require ('../db/schema')
 
 const GetRound = async ( req, resp ) => {
    const round = await Round.findOne( { round: req.params.round_id }).populate([
@@ -36,7 +36,7 @@ const GetRound = async ( req, resp ) => {
 }
 
 const GetTeams = async (req, resp) => {
-   console.log ( 'in RoundController.GetTeams')
+   console.log ( 'in RoundGetTeams')
    // return all teams in the given round
    const round = await Round.findOne( { round: req.params.round_id }).populate([
        { 
@@ -52,9 +52,30 @@ const GetTeams = async (req, resp) => {
    resp.json(round.results)
 }
 
+const UpdateFormation = async (req, resp) => {
+   // req.params.position is the position #/offset
+   // we should only be updating the formation for the last round.
+   const league = await League.findOne()
+   const round = await Round.findOne({ round: league.currentRound })
+   console.log ( round)
+   const formation = round.formation
+   const position = parseInt(req.params.position)
+   formation[ position ] = formation[position] + 1
+
+   await Round.updateOne(
+      { _id: round },
+      {
+         formation: formation
+      },
+      { upsert: true, new: true }
+   )
+   resp.send(round)
+}
+
 
 
 module.exports = {
    GetRound,
-   GetTeams
+   GetTeams,
+   UpdateFormation
 }

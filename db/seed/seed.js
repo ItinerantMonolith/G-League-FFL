@@ -89,14 +89,10 @@ const seed = async () => {
 
    // then build the Round and attach the results
    await Round.create({
-      QB: 1,
-      RB: 2,
-      WR: 2,
-      TE: 1,
-      FX: 1,
       round: 1,
       week1: 4,
       week2: 5,
+      formation: [ 1,2,2,1,1 ]
       comments: [],
       results: results,
    })

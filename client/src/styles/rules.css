@@ -1,0 +1,13 @@
+.scoringDetail {
+   display: flex;
+   justify-content: space-between;
+}
+
+.scoring {
+   width: 200px;
+}
+
+.scoring > h3 {
+   text-align: center;
+}
+
