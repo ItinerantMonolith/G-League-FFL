@@ -5,7 +5,7 @@ import {
    __GetRoster,
    __GetAvailablePlayers,
    __AddPlayerToRoster,
-} from '../services/LeagueService'
+} from '../services/RosterService'
 
 export default class AddPlayer extends Component {
    constructor() {
@@ -100,7 +100,7 @@ export default class AddPlayer extends Component {
    }
 
    addPlayerToRoster = async () => {
-      const res = await __AddPlayerToRoster( this.state.roster_id, this.state.selectedPlayer )
+      await __AddPlayerToRoster( this.state.roster_id, this.state.selectedPlayer )
 
       await this.refreshRoster()
    }
