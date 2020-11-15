@@ -81,4 +81,12 @@ export const __GetRosterScores = async ( week ) => {
  }
 
  
- 
+export const __GetPlayer = async ( player ) => {
+   try {
+      const res = await ApiClient.get(`/players/${player}`)
+      return res.data
+   }
+   catch (err) {
+      console.log ("Error in LeagueService.__GetPlayer", err)
+   }
+}

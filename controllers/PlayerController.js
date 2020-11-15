@@ -3,7 +3,6 @@ const { Player, NFLTeam } = require('../db/schema')
 
 // return a single player based on ID
 const GetPlayer = async (req, resp) => {
-   console.log('in getPlayer')
    const player = await Player.findById(req.params.player_id)
    resp.send(player)
 }
