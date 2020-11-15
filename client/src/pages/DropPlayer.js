@@ -27,6 +27,7 @@ export default class DropPlayer extends Component {
    loadTeams = async () => {
       const teams = await __GetTeams(this.props.round)
 
+      teams.sort((a, b) => (a.team.name < b.team.name ? -1 : 1))
       await this.setState({
          teams: teams,
          selectedTeam: teams[0].team._id,

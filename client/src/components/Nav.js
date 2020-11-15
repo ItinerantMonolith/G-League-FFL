@@ -1,18 +1,20 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import '../styles/nav.css'
 
 const Nav = () => (
    <div>
       <nav>
          <NavLink activeClassName="nav-active" to="/">
-            Standings 
+            Standings
+         </NavLink>
+         <NavLink activeClassName="nav-active" to="/rosters">
+            Rosters
          </NavLink>
          <NavLink activeClassName="nav-active" to="/rules">
-            Rules 
+            Rules
          </NavLink>
          <NavLink activeClassName="nav-active" to="/admin">
-            Roster Management
+            Admin
          </NavLink>
       </nav>
    </div>

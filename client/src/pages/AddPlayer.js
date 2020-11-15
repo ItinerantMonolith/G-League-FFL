@@ -35,6 +35,7 @@ export default class AddPlayer extends Component {
 
       const teams = await __GetTeams(this.props.round)
 
+      teams.sort((a, b) => (a.team.name < b.team.name ? -1 : 1))
       await this.setState({
          nflTeams: nflTeams,
          teams: teams,
@@ -46,16 +47,12 @@ export default class AddPlayer extends Component {
    refreshRoster = async () => {
       const res = await __GetRoster(this.state.selectedTeam, this.props.week)
 
-      res.players.sort ( (a, b) => {
-         if ( a.sortPos < b.sortPos )
-            return -1
-         else if ( a.sortPos > b.sortPos )
-            return 1
+      res.players.sort((a, b) => {
+         if (a.sortPos < b.sortPos) return -1
+         else if (a.sortPos > b.sortPos) return 1
          else {
-            if ( a.name < b.name ) 
-               return -1
-            else 
-               return 1
+            if (a.name < b.name) return -1
+            else return 1
          }
       })
       await this.setState({ roster: res.players, roster_id: res._id })
@@ -73,6 +70,7 @@ export default class AddPlayer extends Component {
          this.state.selectedNFLTeam,
          this.state.selectedPosition
       )
+      res.sort((a, b) => (a.name < b.name ? -1 : 1))
       await this.setState({
          availablePlayers: res,
          selectedPlayer: res[0]._id,
@@ -100,7 +98,7 @@ export default class AddPlayer extends Component {
    }
 
    addPlayerToRoster = async () => {
-      await __AddPlayerToRoster( this.state.roster_id, this.state.selectedPlayer )
+      await __AddPlayerToRoster(this.state.roster_id, this.state.selectedPlayer)
 
       await this.refreshRoster()
    }

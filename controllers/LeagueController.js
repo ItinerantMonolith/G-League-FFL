@@ -51,7 +51,6 @@ updateResults = async (round) => {
 posIdx = (pos) => ['QB', 'RB', 'WR', 'TE'].indexOf(pos)
 
 scoreWeek = async (week, round) => {
-   console.log('in scoreWeek')
    const posCnt = round.formation
    const rosters = await Roster.find({ week: week }).populate([
       {
@@ -87,8 +86,7 @@ scoreWeek = async (week, round) => {
       let flex = []
       for (let i = 0; i < 4; i++) {
          posScores[i].sort((a, b) => a - b)
-
-         for (let j = 0; j < posCnt[i]; j++) {
+      for (let j = 0; j < posCnt[i]; j++) {
             if (posScores[i].length > 0) 
                score = score + posScores[i].pop()
          }
@@ -166,12 +164,10 @@ const AdvanceWeek = async (req, resp) => {
    // if it's a new round advance league.currentRound
    // create new roster records - if it's a new round, DO NOT create one for the last team
    // if it's a new round, create a new Round record, DO NOT create a results record for the last team.
-   console.log ( 'in AdvanceWeek')
    let league = await League.findOne()
    const lastWeek = league.currentWeek
    const lastRound = await getRoundByWeek( league.currentWeek )
    
-   console.log ( 'lastWeek', lastWeek, 'lastRound.round', lastRound.round )
    const thisWeek = lastWeek + 1
    let thisRound = lastRound.round
    let results = lastRound.results

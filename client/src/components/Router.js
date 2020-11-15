@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import Layout from './Layout'
-import Home from '../pages/Home'
+import Standings from '../pages/Standings'
 import Rules from '../pages/Rules'
 import Admin from '../pages/Admin'
+import Rosters from '../pages/Rosters'
 
 class Router extends Component {
    constructor() {
@@ -22,7 +23,7 @@ class Router extends Component {
                   path="/"
                   component={() => (
                      <Layout>
-                        <Home />
+                        <Standings />
                      </Layout>
                   )}
                />
@@ -41,7 +42,14 @@ class Router extends Component {
                         <Admin />
                      </Layout>
                   )}
-               />
+               /><Route
+               path="/rosters"
+               component={() => (
+                  <Layout>
+                     <Rosters />
+                  </Layout>
+               )}
+            />
             </Switch>
          </main>
       )

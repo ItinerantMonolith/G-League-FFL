@@ -4,10 +4,20 @@
 }
 
 .round {
-   width: 100px;
+   width: 300px;
+   margin: 20px auto;
 }
 
 .round > h3 {
    text-align: center;
+   display: flex;
+   justify-content: space-around;
+}
+
+.changeRound {
+   cursor: pointer;
+   font-size: .75em;
+   margin: auto 20px;
+   width: 50px;
 }
 
