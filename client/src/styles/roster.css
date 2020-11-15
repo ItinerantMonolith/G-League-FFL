@@ -1,0 +1,11 @@
+
+.changeWeek {
+   cursor: pointer;
+   font-size: .75em;
+   margin: auto 20px;
+   width: 50px;
+}
+
+.rosters {
+   text-align: center;
+}

@@ -55,7 +55,6 @@ const GetRoster = async (req, resp) => {
 
 // get a roster by team and week...sort by position, player name
 const GetRoster = async (req, resp) => {
-   console.log('in RosterController.GetRoster')
    const roster = await Roster.findOne({
       week: req.params.week,
       team: req.params.team,
@@ -68,8 +67,19 @@ const GetRoster = async (req, resp) => {
    resp.send(roster)
 }
 
+
+const getRosterScores = async ( req, resp ) => {
+   console.log ( 'in getRosterScores, week:', req.params.week)
+   const rosters = await Roster.find( 
+      { week: req.params.week },
+      { week: 1, team: 1, score: 1}
+   )
+   resp.json( rosters )
+}
+
 module.exports = {
    AddPlayer,
    RemovePlayer,
    GetRoster,
+   getRosterScores
 }

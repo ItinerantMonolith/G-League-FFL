@@ -2,7 +2,6 @@ h1 {
    font-size: 2em;
    color: royalblue;
    font-family: 'Permanent Marker', cursive;
-   margin: 10px auto;
 }
 
 h4 {
@@ -12,6 +11,7 @@ h4 {
 header {
     text-align: center;
     font-family: 'Permanent Marker', cursive;
+    margin: 0px;
 }
 
 header nav {

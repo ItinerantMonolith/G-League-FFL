@@ -1,10 +1,20 @@
+/* .round-results {
+   display: grid;
+   grid-template-columns: 2fr 1fr 1fr 1fr;
+} */
+
 .round-team {
-   display: flex;
-   justify-content: space-between;
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr 1fr;
+   /* justify-content: space-between; */
+}
+
+.round-header {
+   font-weight: bold;
 }
 
 .round {
-   width: 300px;
+   width: 400px;
    margin: 20px auto;
 }
 
@@ -12,6 +22,11 @@
    text-align: center;
    display: flex;
    justify-content: space-around;
+}
+
+.round-name {
+   text-align: left;
+   font-family: 'Permanent Marker', cursive;
 }
 
 .changeRound {

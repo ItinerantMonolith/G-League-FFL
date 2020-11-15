@@ -5,9 +5,15 @@
 
 .scoring {
    width: 200px;
+   margin: 20px auto;
 }
 
 .scoring > h3 {
    text-align: center;
+   
 }
 
+.rules {
+   text-align: center;
+   margin: 20px 10%;
+}
