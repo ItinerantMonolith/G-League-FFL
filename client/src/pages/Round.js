@@ -19,9 +19,7 @@ export default class Round extends Component {
    }
 
    loadRound = async () => {
-      console.log('in loadRound', this.props.round)
-
-      // now get the teams and scores for this week
+      //  get the teams and scores for this week
       const round = await __GetRound(this.props.round)
 
       const week1 = await __GetRosterScores(round.week1)

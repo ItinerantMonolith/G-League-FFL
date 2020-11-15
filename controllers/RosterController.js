@@ -69,7 +69,6 @@ const GetRoster = async (req, resp) => {
 
 
 const getRosterScores = async ( req, resp ) => {
-   console.log ( 'in getRosterScores, week:', req.params.week)
    const rosters = await Roster.find( 
       { week: req.params.week },
       { week: 1, team: 1, score: 1}
@@ -77,9 +76,23 @@ const getRosterScores = async ( req, resp ) => {
    resp.json( rosters )
 }
 
+const getTeamsByWeek = async ( req, resp ) => {
+   const rosters = await Roster.find({ week: req.params.week }, { select: '-actions -players'})
+      .populate( 
+         {
+            path: 'team',
+            model: 'teams',
+            select: 'name'
+         })
+
+   resp.json ( rosters )
+}
+
+
 module.exports = {
    AddPlayer,
    RemovePlayer,
    GetRoster,
-   getRosterScores
+   getRosterScores,
+   getTeamsByWeek
 }

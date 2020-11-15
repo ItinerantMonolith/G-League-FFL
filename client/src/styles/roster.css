@@ -9,3 +9,17 @@
 .rosters {
    text-align: center;
 }
+
+.rosterCenter {
+   display: grid;
+   grid-template-columns: 1fr 2fr 3fr;
+   margin: 10px 5%;
+}
+
+.rosterCenter h3 {
+   margin: 0px auto;
+}
+
+.playerList {
+   margin: 0px 15px;
+}

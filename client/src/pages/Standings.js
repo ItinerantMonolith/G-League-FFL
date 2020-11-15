@@ -21,11 +21,9 @@ export default class Standings extends Component {
 
    loadLeague = async () => {
       const leagueInfo = await __GetLeague()
-      console.log ( leagueInfo )
       
       // now get the teams and scores for this week
       const round = await __GetRound( leagueInfo.currentRound )
-      console.log ( round )
 
       await this.setState( { 
          currentRound: leagueInfo.currentRound,
@@ -36,7 +34,6 @@ export default class Standings extends Component {
    }
 
    prevRound = async (  ) => {
-      console.log ('prevRound')
       const newRound = this.state.viewRound - 1
       this.setState( { viewRound: newRound } )
    }

@@ -76,6 +76,9 @@ export default class Admin extends Component {
          case 3:
             content = (<ChangeFormation week={this.state.currentWeek} round={this.state.currentRound} />)
             break;
+
+         default:
+            break
       }
       return (
          <div>

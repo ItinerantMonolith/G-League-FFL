@@ -39,3 +39,12 @@ header nav a:hover {
 .standings {
    text-align: center;
 }
+
+.player {
+   display: flex;
+   justify-content: space-between;
+}
+
+.selectMe {
+   cursor: pointer;
+}
