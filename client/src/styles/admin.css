@@ -1,5 +1,59 @@
 .rosterDisplay {
-   background-color: lightblue;
-   width: 200px
+   /* background-color: lightblue; */
+   width: 200px;
 }
 
+.adminCenter {
+   display: grid;
+   grid-template-columns: 1fr 4fr;
+   text-align: center;
+}
+
+h3 {
+   text-align: center;
+}
+
+h2 {
+   margin: 5px auto;
+}
+
+.adminBtn {
+   width: 200px;
+   height: 30px;
+   background-color:lightcoral;
+   border-radius: 8px;
+   margin: 10px auto;
+   font-family: 'Permanent Marker', cursive;
+}
+
+.addPlayers {
+   display: grid;
+   grid-template-columns: 1fr 2fr;
+}
+
+.addPlayerRoster {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   margin: 5px auto;
+}
+
+.selectControls {
+   display: flex;
+   flex-direction: column;
+}
+
+.controlRow {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   margin: 2px 5px;
+}
+
+.lControl {
+   text-align: right;
+   margin: 2px 5px;
+}
+
+.rControl {
+   text-align: left;
+}

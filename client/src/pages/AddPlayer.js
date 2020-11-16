@@ -107,57 +107,73 @@ export default class AddPlayer extends Component {
       return (
          <div>
             <h2>Add Players</h2>
-            <label htmlFor="selTeam">Select a Team </label>
-            <select id="selTeam" onChange={this.handleSelectTeam}>
-               {this.state.teams.map((e) => (
-                  <option value={e.team._id} key={e.team_id}>
-                     {e.team.name}
-                  </option>
-               ))}
-            </select>
-            <div className="rosterDisplay">
-               {this.state.roster.map((e) => (
-                  <div className="player">
-                     <div>{e.name}</div>
-                     <div>
-                        {e.position}/{e.nflTeam}
+            <div className="addPlayers">
+               <div className="addPlayerRoster">
+                  <div>
+                     <label htmlFor="selTeam">Select a Team </label>
+                     <select id="selTeam" onChange={this.handleSelectTeam}>
+                        {this.state.teams.map((e) => (
+                           <option value={e.team._id} key={e.team_id}>
+                              {e.team.name}
+                           </option>
+                        ))}
+                     </select>
+                  </div>
+                  <div className="rosterDisplay">
+                     {this.state.roster.map((e) => (
+                        <div className="player" key={e.name}>
+                           <div key={e.name}>{e.name}</div>
+                           <div>
+                              {e.position}/{e.nflTeam}
+                           </div>
+                        </div>
+                     ))}
+                  </div>
+               </div>
+               <div className="selectControls">
+                  <div className="controlRow">
+                     <div className="lControl">From NFL Team</div>
+                     <div className="rControl">
+                        <select onChange={this.handleNFLTeam}>
+                           {this.state.nflTeams.map((e) => (
+                              <option value={e._id} key={e._id}>
+                                 {e.name}
+                              </option>
+                           ))}
+                        </select>
                      </div>
                   </div>
-               ))}
+                  <div className="controlRow">
+                     <div className="lControl">Select Position</div>
+                     <div className="rControl">
+                        <select onChange={this.handlePosition}>
+                           {['QB', 'RB', 'WR', 'TE'].map((e) => (
+                              <option value={e} key={e}>
+                                 {e}
+                              </option>
+                           ))}
+                        </select>
+                     </div>
+                  </div>
+                  <div className="controlRow">
+                     <div className="lControl">Select Player</div>
+                     <div className="rControl">
+                        <select onChange={this.handlePlayerToAdd}>
+                           {this.state.availablePlayers.map((e) => (
+                              <option value={e._id} key={e._id}>
+                                 {e.name}
+                              </option>
+                           ))}
+                        </select>
+                     </div>
+                  </div>
+                  <div>
+                     <button onClick={this.addPlayerToRoster}>
+                        Add Selected Player to Roster
+                     </button>
+                  </div>
+               </div>
             </div>
-            <div>
-               <label>From NFL Team</label>
-               <select onChange={this.handleNFLTeam}>
-                  {this.state.nflTeams.map((e) => (
-                     <option value={e._id} key={e._id}>
-                        {e.name}
-                     </option>
-                  ))}
-               </select>
-            </div>
-            <div>
-               <label>Select Position</label>
-               <select onChange={this.handlePosition}>
-                  {['QB', 'RB', 'WR', 'TE'].map((e) => (
-                     <option value={e} key={e}>
-                        {e}
-                     </option>
-                  ))}
-               </select>
-            </div>
-            <div>
-               <label>Select Player</label>
-               <select onChange={this.handlePlayerToAdd}>
-                  {this.state.availablePlayers.map((e) => (
-                     <option value={e._id} key={e._id}>
-                        {e.name}
-                     </option>
-                  ))}
-               </select>
-            </div>
-            <button onClick={this.addPlayerToRoster}>
-               Add Selected Player to Roster
-            </button>
          </div>
       )
    }

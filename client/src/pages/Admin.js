@@ -44,8 +44,8 @@ export default class Admin extends Component {
    handleAdvanceWeek = async () => {
       if (window.confirm('Do you really want to advance the week?')) {
          const res = await __AdvanceWeek()
-         alert ("Complete")
-         console.log ( res )
+         alert('Complete')
+         console.log(res)
       }
    }
 
@@ -56,26 +56,42 @@ export default class Admin extends Component {
       }
    }
 
-   setAddPlayers = () => this.setState({ mode: 1 }) 
+
+   setAddPlayers = () => this.setState({ mode: 1 })
 
    setDropPlayers = () => this.setState({ mode: 2 })
 
-   changeLineup = () =>  this.setState({ mode: 3 }) 
+   changeLineup = () => this.setState({ mode: 3 })
 
    render() {
       let content = ''
-      switch ( this.state.mode ) {
+      switch (this.state.mode) {
          case 1:
-            content = (<AddPlayer week={this.state.currentWeek} round={this.state.currentRound} />)
-            break;
-         
+            content = (
+               <AddPlayer
+                  week={this.state.currentWeek}
+                  round={this.state.currentRound}
+               />
+            )
+            break
+
          case 2:
-            content = (<DropPlayer week={this.state.currentWeek} round={this.state.currentRound} />)
-            break;
-         
+            content = (
+               <DropPlayer
+                  week={this.state.currentWeek}
+                  round={this.state.currentRound}
+               />
+            )
+            break
+
          case 3:
-            content = (<ChangeFormation week={this.state.currentWeek} round={this.state.currentRound} />)
-            break;
+            content = (
+               <ChangeFormation
+                  week={this.state.currentWeek}
+                  round={this.state.currentRound}
+               />
+            )
+            break
 
          default:
             break
@@ -83,20 +99,16 @@ export default class Admin extends Component {
       return (
          <div>
             <h3>Admin Functions</h3>
-            <button onClick={this.handleLoadStats}>Load Stats</button>
-            <button onClick={this.handleAdvanceWeek}>Advance Week</button>
-            <button onClick={this.setAddPlayers}>Add Players</button>
-            <button onClick={this.setDropPlayers}>Drop Players</button>
-            <button onClick={this.changeLineup}>Change Formation</button>
-            {content}
-
-            {/* this.state.mode === 0 ? (
-               ''
-            ) : this.state.mode === 1 ? (
-               <AddPlayer week={this.state.currentWeek} round={this.state.currentRound} />
-            ) : (
-               <DropPlayer week={this.state.currentWeek} round={this.state.currentRound}/>
-            ) */}
+            <div className="adminCenter">
+               <div className="adminMenu">
+                  <button onClick={this.handleLoadStats} className="adminBtn">Load Stats</button>
+                  <button onClick={this.handleAdvanceWeek} className="adminBtn">Advance Week</button>
+                  <button onClick={this.setAddPlayers} className="adminBtn">Add Players</button>
+                  <button onClick={this.setDropPlayers} className="adminBtn">Drop Players</button>
+                  <button onClick={this.changeLineup} className="adminBtn">Change Formation</button>
+               </div>
+               <div className="adminContent">{content}</div>
+            </div>
          </div>
       )
    }
