@@ -19,11 +19,10 @@ export default class ChangeFormation extends Component {
    getCurrentRound = async () => {
       const res = await __GetRound(this.props.round)
 
-      // +== cap the positions correctly
+      //  cap the positions correctly
       const maxPos = [2, 3, 3, 2, 2]
       const canChange = Array(5)
       res.formation.forEach((e, i) => (canChange[i] = e < maxPos[i]))
-      console.log(canChange)
 
       await this.setState({ round: res, canChange: canChange })
    }
@@ -35,7 +34,7 @@ export default class ChangeFormation extends Component {
    }
 
    handleAddPosition = async () => {
-      const res = await __UpdateFormation(this.state.selectedPosition)
+      await __UpdateFormation(this.state.selectedPosition)
 
       await this.getCurrentRound()
       alert('Formation Updated')

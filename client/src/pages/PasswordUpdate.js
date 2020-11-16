@@ -20,12 +20,12 @@ export default class PasswordUpdate extends Component {
    updatePassword = async (e) => {
       e.preventDefault()
       try {
-         const res = await __UpdatePassword({
+         await __UpdatePassword({
             team: this.props.currentTeam,
             newPassword: this.state.newPassword,
             oldPassword: this.state.oldPassword,
          })
-         alert ("Password Updated")
+         alert('Password Updated')
          this.props.history.push('/')
       } catch (err) {
          console.log('Error changing password:', err)
@@ -36,36 +36,44 @@ export default class PasswordUpdate extends Component {
    render() {
       const { password } = this.state
       return (
-         <div className="">
+         <div>
             <form className="" onSubmit={this.handleSubmit}>
-               <div>
+               <div className="loginArea">
                   <div>
-                     <label>Enter Old Password</label>
+                     <div>
+                        <label>Enter Old Password</label>
+                        <input
+                           type="password"
+                           name="oldPassword"
+                           value={password}
+                           onChange={this.handlePassword}
+                           placeholder="Old Password"
+                           autoComplete="false"
+                        />
+                     </div>
+                  </div>
+                  <div>
+                     <label>Enter New Passowrd</label>
                      <input
                         type="password"
-                        name="oldPassword"
+                        name="newPassword"
                         value={password}
                         onChange={this.handlePassword}
-                        placeholder="Old Password"
+                        placeholder="New Password"
                         autoComplete="false"
                      />
                   </div>
+                  <div>
+                     <button onClick={this.updatePassword}>
+                        Update Password
+                     </button>
+                  </div>
+                  {this.state.formError ? (
+                     <p>Error Updating Password</p>
+                  ) : (
+                     <p></p>
+                  )}
                </div>
-               <div>
-                  <label>Enter New Passowrd</label>
-                  <input
-                     type="password"
-                     name="newPassword"
-                     value={password}
-                     onChange={this.handlePassword}
-                     placeholder="New Password"
-                     autoComplete="false"
-                  />
-               </div>
-               <div>
-                  <button onClick={this.updatePassword}>Update Password</button>
-               </div>
-               {this.state.formError ? <p>Error Updating Password</p> : <p></p>}
             </form>
          </div>
       )
