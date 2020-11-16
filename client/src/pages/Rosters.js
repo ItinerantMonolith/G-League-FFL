@@ -154,7 +154,7 @@ export default class Rosters extends Component {
                   <h3>Select a Team</h3>
                   {this.state.teams.map((e, i) => (
                      <div
-                        className="selectMe"
+                        className={ this.props.currentTeam === e._id ? "selectMe myTeam" : "selectMe"}
                         key={e._id}
                         onClick={() => this.selectTeam(e._id)}
                      >

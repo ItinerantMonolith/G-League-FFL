@@ -42,7 +42,7 @@ class Router extends Component {
             this.setState({ currentTeam: null, authenticated: false })
             localStorage.clear()
          }
-      } else console.log('no token')
+      } 
    }
 
    toggleAuthenticated = (value, team, done) => {

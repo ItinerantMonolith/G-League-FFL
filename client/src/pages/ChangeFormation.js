@@ -7,6 +7,7 @@ export default class ChangeFormation extends Component {
       this.state = {
          round: '',
          selectedPosition: '0',
+         canChange: [],
       }
    }
 
@@ -17,24 +18,27 @@ export default class ChangeFormation extends Component {
 
    getCurrentRound = async () => {
       const res = await __GetRound(this.props.round)
-      await this.setState({ round: res })
 
-      // const maxPos = [2, 3, 3, 2, 2]
       // +== cap the positions correctly
+      const maxPos = [2, 3, 3, 2, 2]
+      const canChange = Array(5)
+      res.formation.forEach((e, i) => (canChange[i] = e < maxPos[i]))
+      console.log(canChange)
 
+      await this.setState({ round: res, canChange: canChange })
    }
 
    handleSelectPos = async (e) => {
-      await this.setState( {
-         selectedPosition: e.target.value
+      await this.setState({
+         selectedPosition: e.target.value,
       })
    }
 
    handleAddPosition = async () => {
-      const res = await __UpdateFormation ( this.state.selectedPosition )
+      const res = await __UpdateFormation(this.state.selectedPosition)
 
       await this.getCurrentRound()
-      alert ("Formation Updated")
+      alert('Formation Updated')
    }
 
    render() {
@@ -55,14 +59,18 @@ export default class ChangeFormation extends Component {
             <div>
                <label>Select a position to add</label>
                <select onClick={this.handleSelectPos}>
-                  {positions.map((e, i) => (
-                     <option value={i} key={i}>
-                        {e}
-                     </option>
-                  ))}
+                  {positions.map((e, i) =>
+                     this.state.canChange[i] ? (
+                        <option value={i} key={i}>
+                           {e}
+                        </option>
+                     ) : null
+                  )}
                </select>
             </div>
-            <button onClick={this.handleAddPosition}>Add Selected Position</button>
+            <button onClick={this.handleAddPosition}>
+               Add Selected Position
+            </button>
          </div>
       )
    }

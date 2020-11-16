@@ -36,13 +36,16 @@ export default class Login extends Component {
    handleSubmit = async (e) => {
       e.preventDefault()
       try {
-         const loginData = await __LoginTeam( { selectedTeam: this.state.selectedTeam, password: this.state.password })
+         const loginData = await __LoginTeam({
+            selectedTeam: this.state.selectedTeam,
+            password: this.state.password,
+         })
          localStorage.setItem('token', loginData.token)
          this.props.toggleAuthenticated(true, loginData.user, () =>
             this.props.history.push('/')
          )
       } catch (error) {
-         console.log ("error logging in:", error)
+         console.log('error logging in:', error)
          this.setState({ formError: true })
       }
    }
@@ -50,36 +53,43 @@ export default class Login extends Component {
    render() {
       const { password } = this.state
       return (
-         <div className="">
+         <div>
             <form className="" onSubmit={this.handleSubmit}>
-               <div>
-                  <label htmlFor="selTeam">Select a Team </label>
-                  <select
-                     id="selTeam"
-                     onChange={this.handleSelectTeam}
-                     value={this.state.selectedTeam}
-                  >
-                     <option value="" key="0"></option>
-                     {this.state.teams.map((e) => (
-                        <option value={e.team._id} key={e.team_id}>
-                           {e.team.name}
-                        </option>
-                     ))}
-                  </select>
+               <div className="loginArea">
+                  <div>
+                     <label htmlFor="selTeam">Who are you?</label>
+                     <select
+                        id="selTeam"
+                        onChange={this.handleSelectTeam}
+                        value={this.state.selectedTeam}
+                     >
+                        <option value="" key="0"></option>
+                        {this.state.teams.map((e) => (
+                           <option value={e.team._id} key={e.team_id}>
+                              {e.team.name}
+                           </option>
+                        ))}
+                     </select>
+                  </div>
+                  <div>
+                     <input
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={this.handlePassword}
+                        placeholder="Password"
+                        autoComplete="false"
+                     />
+                  </div>
+                  <div>
+                     <button>Sign In</button>
+                  </div>
+                  {this.state.formError ? (
+                     <p>Error While Logging In</p>
+                  ) : (
+                     <p></p>
+                  )}
                </div>
-
-               <input
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={this.handlePassword}
-                  placeholder="Password"
-                  autoComplete="false"
-               />
-               <div>
-                  <button>Sign In</button>
-               </div>
-               {this.state.formError ? <p>Error While Logging In</p> : <p></p>}
             </form>
          </div>
       )

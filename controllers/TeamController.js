@@ -11,9 +11,7 @@ const {
 
 const Login = async (req, resp, next) => {
    try {
-      console.log ("Login.  req.body: ", req.body)
       const team = await Team.findById( req.body.selectedTeam )
-      console.log(team)
       if (
         team &&
         (await checkPassword(req.body.password, team.password_digest))
@@ -26,7 +24,6 @@ const Login = async (req, resp, next) => {
         resp.locals.payload = payload
         return next()
       }
-      console.log ( 'unauth')
       resp.status(401).send({ msg: 'Unauthorized' })
     } catch (err) {
       throw err
