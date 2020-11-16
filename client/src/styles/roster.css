@@ -89,3 +89,9 @@
 .statsBlock {
    grid-column: span 2;
 }
+
+.infoBlock {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}

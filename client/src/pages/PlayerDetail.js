@@ -14,21 +14,27 @@ const PlayerDetail = (props) => {
                      ({player.position}/{player.nflTeam})
                   </span>
                </div>
-               <div className="info">
-                  <span className="infoLabel">Height: </span>
-                  {player.height}
-               </div>
-               <div className="info">
-                  <span className="infoLabel">College: </span>
-                  {player.college}
-               </div>
-               <div className="info">
-                  <span className="infoLabel">Weight: </span>
-                  {player.weight}
-               </div>
-               <div className="info">
-                  <span className="infoLabel">Experience: </span>
-                  {player.experience}
+               <div className="infoBlock">
+                  <div>
+                     <div className="info">
+                        <span className="infoLabel">Height: </span>
+                        {player.height}
+                     </div>
+                     <div className="info">
+                        <span className="infoLabel">Weight: </span>
+                        {player.weight}
+                     </div>
+                  </div>
+                  <div>
+                     <div className="info">
+                        <span className="infoLabel">College: </span>
+                        {player.college}
+                     </div>
+                     <div className="info">
+                        <span className="infoLabel">Experience: </span>
+                        {player.experience}
+                     </div>
+                  </div>
                </div>
             </div>
             <div>
