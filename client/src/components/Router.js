@@ -6,15 +6,44 @@ import Rules from '../pages/Rules'
 import Admin from '../pages/Admin'
 import Rosters from '../pages/Rosters'
 import ProtectedRoute from './ProtectedRoute'
-import { __CheckSession } from '../services/TeamServices'
+import { __CheckSession } from '../services/TeamService'
 
 class Router extends Component {
    constructor() {
       super()
-      this.state = {}
+      this.state = {
+         authenticated: false,
+         currentTeam: null,
+       }
    }
 
-   componentDidMount() {}
+   componentDidMount() {
+      this.verifyTokenValid()
+   }
+
+   verifyTokenValid = async () => {
+      const token = localStorage.getItem('token')
+      if (token) {
+        try {
+          const session = await __CheckSession()
+          this.setState(
+            {
+              currentTeam: session,
+              authenticated: true
+            },
+            () => this.props.history.push('/')
+          )
+        } catch (error) {
+          this.setState({ currentTeam: null, authenticated: false })
+          localStorage.clear()
+        }
+      }
+      console.log ( 'no token')
+   }
+   
+   toggleAuthenticated = (value, team, done) => {
+     this.setState({ authenticated: value, currentTeam: team }, () => done())
+   }
 
    render() {
       return (

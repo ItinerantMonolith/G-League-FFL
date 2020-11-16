@@ -19,7 +19,8 @@ const Login = async (req, resp, next) => {
       ) {
         const payload = {
           _id: team._id,
-          name: team.name
+          name: team.name,
+          asA: team.isAdmin
         }
         resp.locals.payload = payload
         return next()
