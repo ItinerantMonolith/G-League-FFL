@@ -42,6 +42,7 @@ h2 {
    width: 250px;
    margin: 5px auto;
 }
+
 .selectControls {
    display: flex;
    flex-direction: column;
@@ -62,14 +63,7 @@ h2 {
    text-align: left;
 }
 
-.adminCenter select {
-   border-radius: 10px;
-   font-family: 'Permanent Marker', cursive;  
-}
-
 .adminCenter button {
    border: 2px solid red;
-   font-family: 'Permanent Marker', cursive;
-   border-radius: 7px;
-   margin: 10px auto;
+ 
 }

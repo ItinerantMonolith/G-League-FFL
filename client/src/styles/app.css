@@ -3,18 +3,13 @@ body {
    font-family: 'Permanent Marker', cursive;
 }
 
-.logout {
-   display: flex;
-   flex-direction: row;
-   justify-content: center;
+select {
+   border-radius: 10px;
+   font-family: 'Permanent Marker', cursive;
 }
 
-.logout button {
-   
-   border: 2px solid red;
+button {
    font-family: 'Permanent Marker', cursive;
-   background-color: black;
-   color: white;
    border-radius: 7px;
-   margin: 0px 20px;
+   margin: 10px auto;
 }
