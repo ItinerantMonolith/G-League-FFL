@@ -4,7 +4,7 @@ const ApiClient = Axios.create({
   baseURL: 'http://localhost:3001/api'
 })
 
-/* ApiClient.interceptors.request.use(
+ApiClient.interceptors.request.use(
    async(config) => {
       const token = localStorage.getItem('token')
       if ( token ) {
@@ -14,5 +14,5 @@ const ApiClient = Axios.create({
    },
    (err) => Promise.reject(err)
 )
- */
+
 export default ApiClient

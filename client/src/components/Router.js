@@ -5,6 +5,8 @@ import Standings from '../pages/Standings'
 import Rules from '../pages/Rules'
 import Admin from '../pages/Admin'
 import Rosters from '../pages/Rosters'
+import ProtectedRoute from './ProtectedRoute'
+import { __CheckSession } from '../services/TeamServices'
 
 class Router extends Component {
    constructor() {
