@@ -38,16 +38,14 @@ The user must be able to...
 * advance the week and round as appropriate
 * make a copy of rosters when the week advances
 * load the most recent results/statistics and score the week
-* post comments about the results of each week
 * view an individual player's weekly results
-* see headshots and vital stats about players (height/weight/age/etc)
-* restrict access to certain functions (loading scores, advancing week, etc) to the designated admin
-
-
+* see headshots and vital stats about players (height/weight/etc)
 ***
 ### Future Updates / Backlog
 * support authorization 
- 
+* restrict access to certain functions (loading scores, advancing week, etc) to the designated admin
+* post comments about the results of each week
+
 ***
 Project Tracking
 Stories, backlog, and WIP managed at [Trello](https://trello.com/b/kJpCpP6C/g-league)
