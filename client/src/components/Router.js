@@ -15,7 +15,7 @@ class Router extends Component {
       this.state = {
          authenticated: false,
          currentTeam: null,
-       }
+      }
    }
 
    componentDidMount() {
@@ -25,26 +25,24 @@ class Router extends Component {
    verifyTokenValid = async () => {
       const token = localStorage.getItem('token')
       if (token) {
-        try {
-          const session = await __CheckSession()
-          this.setState(
-            {
-              currentTeam: session,
-              authenticated: true
-            },
-            () => this.props.history.push('/')
-          )
-        } catch (error) {
-          this.setState({ currentTeam: null, authenticated: false })
-          localStorage.clear()
-        }
-      }
-      console.log ( 'no token')
+         try {
+            const session = await __CheckSession()
+            this.setState(
+               {
+                  currentTeam: session,
+                  authenticated: true,
+               },
+               () => this.props.history.push('/')
+            )
+         } catch (error) {
+            this.setState({ currentTeam: null, authenticated: false })
+            localStorage.clear()
+         }
+      } else console.log('no token')
    }
-   
+
    toggleAuthenticated = (value, team, done) => {
-      console.log ('toggle:', value, team )
-     this.setState({ authenticated: value, currentTeam: team }, () => done())
+      this.setState({ authenticated: value, currentTeam: team }, () => done())
    }
 
    render() {
@@ -56,7 +54,13 @@ class Router extends Component {
                   path="/"
                   component={() => (
                      <Layout>
-                        <Standings />
+                        <Standings
+                           currentTeam={
+                              this.state.currentTeam
+                                 ? this.state.currentTeam.team
+                                 : null
+                           }
+                        />
                      </Layout>
                   )}
                />
@@ -77,20 +81,23 @@ class Router extends Component {
                   )}
                />
                <Route
-               path="/rosters"
-               component={() => (
-                  <Layout>
-                     <Rosters />
-                  </Layout>
-               )}
+                  path="/rosters"
+                  component={() => (
+                     <Layout>
+                        <Rosters />
+                     </Layout>
+                  )}
                />
                <Route
-               path="/login"
-               component={(props) => (
-                  <Layout>
-                     <Login {...props} toggleAuthenticated={this.toggleAuthenticated}/>
-                  </Layout>
-               )}
+                  path="/login"
+                  component={(props) => (
+                     <Layout>
+                        <Login
+                           {...props}
+                           toggleAuthenticated={this.toggleAuthenticated}
+                        />
+                     </Layout>
+                  )}
                />
             </Switch>
          </main>

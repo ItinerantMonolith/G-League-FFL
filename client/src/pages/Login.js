@@ -38,6 +38,7 @@ export default class Login extends Component {
       try {
          const loginData = await __LoginTeam( { selectedTeam: this.state.selectedTeam, password: this.state.password })
          console.log('loginData',loginData)
+         localStorage.setItem('token', loginData.token)
          this.props.toggleAuthenticated(true, loginData.user, () =>
             this.props.history.push('/')
          )

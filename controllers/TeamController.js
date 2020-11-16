@@ -49,8 +49,8 @@ const UpdatePassword = async (req, resp) => {
 }
 
 const RefreshSession = (req, resp) => {
-   const token = resp.locals.token
-   resp.send(token)
+   const payload = resp.locals.payload
+   resp.send( payload )
 }
 
 module.exports = {

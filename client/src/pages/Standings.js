@@ -55,6 +55,7 @@ export default class Standings extends Component {
             <Round round={viewRound} 
                prevRound={ viewRound > 1 ? () => this.prevRound() : null }
                nextRound={ viewRound < currentRound ? () => this.nextRound() : null }
+               currentTeam={this.props.currentTeam}
             />
          </div>
       )

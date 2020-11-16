@@ -3,18 +3,19 @@ require('dotenv').config()
 
 const secretKey = process.env.SECRET_KEY
 
-const getToken = (req, res, next) => {
+const getToken = (req, resp, next) => {
    const token = req.headers['authorization'].split(' ')[1]
-   res.locals.token = token
+   resp.locals.token = token
    next()
 }
 
-const verifyToken = (req, res, next) => {
-   let token = res.locals.token
+const verifyToken = (req, resp, next) => {
+   let token = resp.locals.token
    jwt.verify(token, secretKey, (err, t) => {
       if (err) {
-         return res.status(401).json({ msg: 'Invalid Token]' })
+         return resp.status(401).json({ msg: 'Invalid Token]' })
       }
+      resp.locals.payload = t
       return next()
    })
 }
