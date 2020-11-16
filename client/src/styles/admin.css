@@ -28,16 +28,20 @@ h2 {
 
 .addPlayers {
    display: grid;
-   grid-template-columns: 1fr 2fr;
+   grid-template-columns: 1fr 1fr;
 }
 
 .addPlayerRoster {
    display: flex;
    flex-direction: column;
    justify-content: center;
-   margin: 5px auto;
+   /* margin: 5px auto; */
 }
 
+.rosterDisplay {
+   width: 250px;
+   margin: 5px auto;
+}
 .selectControls {
    display: flex;
    flex-direction: column;
