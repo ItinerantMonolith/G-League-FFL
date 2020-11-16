@@ -37,7 +37,15 @@ const GetRound = async ( req, resp ) => {
 
 const GetTeams = async (req, resp) => {
    // return all teams in the given round
-   const round = await Round.findOne( { round: req.params.round_id }).populate([
+   // if round 0 is sent, return all teams from the current round
+   let reqRound = req.params.round_id
+   
+   if ( parseInt(reqRound) === 0 ) {
+      const league = await League.findOne()
+      reqRound = league.currentRound
+   }
+
+   const round = await Round.findOne( { round: reqRound }).populate([
        { 
           path: 'results',
           populate: {

@@ -15,7 +15,6 @@ export default class DropPlayer extends Component {
          roster_id: '',
          selectedPlayer: ''
       }
-
    }
 
    componentDidMount = async () => {

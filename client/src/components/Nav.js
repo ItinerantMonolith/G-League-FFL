@@ -16,6 +16,9 @@ const Nav = () => (
          <NavLink activeClassName="nav-active" to="/admin">
             Admin
          </NavLink>
+         <NavLink activeClassName="nav-active" to="/login">
+            Sign In
+         </NavLink>
       </nav>
    </div>
 )

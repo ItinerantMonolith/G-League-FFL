@@ -5,6 +5,7 @@ import Standings from '../pages/Standings'
 import Rules from '../pages/Rules'
 import Admin from '../pages/Admin'
 import Rosters from '../pages/Rosters'
+import Login from '../pages/Login'
 import ProtectedRoute from './ProtectedRoute'
 import { __CheckSession } from '../services/TeamService'
 
@@ -73,14 +74,23 @@ class Router extends Component {
                         <Admin />
                      </Layout>
                   )}
-               /><Route
+               />
+               <Route
                path="/rosters"
                component={() => (
                   <Layout>
                      <Rosters />
                   </Layout>
                )}
-            />
+               />
+               <Route
+               path="/login"
+               component={() => (
+                  <Layout>
+                     <Login />
+                  </Layout>
+               )}
+               />
             </Switch>
          </main>
       )
