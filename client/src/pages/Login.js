@@ -9,7 +9,7 @@ export default class Login extends Component {
          password: '',
          formError: false,
          teams: [],
-         selectedTeam: ''
+         selectedTeam: '',
       }
    }
 
@@ -26,7 +26,7 @@ export default class Login extends Component {
    }
 
    handleSelectTeam = (e) => {
-      this.setState ( { selectedTeam: e.target.value })
+      this.setState({ selectedTeam: e.target.value })
    }
 
    handlePassword = (e) => {
@@ -36,30 +36,36 @@ export default class Login extends Component {
    handleSubmit = async (e) => {
       e.preventDefault()
       try {
-         const loginData = await __LoginTeam(this.state)
-         // console.log(loginData)
+         const loginData = await __LoginTeam( { selectedTeam: this.state.selectedTeam, password: this.state.password })
+         console.log('loginData',loginData)
          this.props.toggleAuthenticated(true, loginData.user, () =>
-            this.props.history.push('/profile')
+            this.props.history.push('/')
          )
       } catch (error) {
+         console.log ("error logging in:", error)
          this.setState({ formError: true })
       }
    }
+
    render() {
       const { password } = this.state
       return (
          <div className="">
             <form className="" onSubmit={this.handleSubmit}>
                <div>
-               <label htmlFor="selTeam">Select a Team </label>
-               <select id="selTeam" onChange={this.handleSelectTeam} value={this.state.selectedTeam}>
-                  <option value="" key="0"></option>
-                  {this.state.teams.map((e) => (
-                     <option value={e.team._id} key={e.team_id}>
-                        {e.team.name}
-                     </option>
-                  ))}
-               </select>
+                  <label htmlFor="selTeam">Select a Team </label>
+                  <select
+                     id="selTeam"
+                     onChange={this.handleSelectTeam}
+                     value={this.state.selectedTeam}
+                  >
+                     <option value="" key="0"></option>
+                     {this.state.teams.map((e) => (
+                        <option value={e.team._id} key={e.team_id}>
+                           {e.team.name}
+                        </option>
+                     ))}
+                  </select>
                </div>
 
                <input
@@ -70,7 +76,9 @@ export default class Login extends Component {
                   placeholder="Password"
                   autoComplete="false"
                />
-               <button>Sign In</button>
+               <div>
+                  <button>Sign In</button>
+               </div>
                {this.state.formError ? <p>Error While Logging In</p> : <p></p>}
             </form>
          </div>

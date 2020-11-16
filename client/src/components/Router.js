@@ -43,6 +43,7 @@ class Router extends Component {
    }
    
    toggleAuthenticated = (value, team, done) => {
+      console.log ('toggle:', value, team )
      this.setState({ authenticated: value, currentTeam: team }, () => done())
    }
 
@@ -85,9 +86,9 @@ class Router extends Component {
                />
                <Route
                path="/login"
-               component={() => (
+               component={(props) => (
                   <Layout>
-                     <Login />
+                     <Login {...props} toggleAuthenticated={this.toggleAuthenticated}/>
                   </Layout>
                )}
                />
