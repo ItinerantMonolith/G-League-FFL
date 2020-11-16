@@ -2,7 +2,7 @@ import React from 'react'
 import Nav from './Nav'
 import '../styles/layout.css'
 
-const Layout = ({ children }) => (
+const Layout = ({ children, authenticated, currentTeam }) => (
    <div>
       <header>
          <div>
@@ -14,7 +14,9 @@ const Layout = ({ children }) => (
                </h4>
             </section>
          </div>
-         <Nav />
+         <Nav 
+            authenticated={authenticated}
+            currentTeam={currentTeam}/>
       </header>
       {children}
    </div>

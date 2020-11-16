@@ -6,6 +6,7 @@ import Rules from '../pages/Rules'
 import Admin from '../pages/Admin'
 import Rosters from '../pages/Rosters'
 import Login from '../pages/Login'
+import Logout from '../pages/Logout'
 import ProtectedRoute from './ProtectedRoute'
 import { __CheckSession } from '../services/TeamService'
 
@@ -15,11 +16,13 @@ class Router extends Component {
       this.state = {
          authenticated: false,
          currentTeam: null,
+         pageLoading: true,
       }
    }
 
-   componentDidMount() {
+   componentDidMount () {
       this.verifyTokenValid()
+      this.setState({ pageLoading: false })
    }
 
    verifyTokenValid = async () => {
@@ -45,61 +48,104 @@ class Router extends Component {
       this.setState({ authenticated: value, currentTeam: team }, () => done())
    }
 
+   logMeOut = () => {
+      this.setState({ currentTeam: null, authenticated: false })
+      localStorage.clear()
+      this.props.history.push('/')
+   }
+
    render() {
       return (
          <main>
-            <Switch>
-               <Route
-                  exact
-                  path="/"
-                  component={() => (
-                     <Layout>
-                        <Standings
-                           currentTeam={
-                              this.state.currentTeam
-                                 ? this.state.currentTeam.team
-                                 : null
-                           }
-                        />
-                     </Layout>
-                  )}
-               />
-               <Route
-                  path="/rules"
-                  component={() => (
-                     <Layout>
-                        <Rules />
-                     </Layout>
-                  )}
-               />
-               <Route
-                  path="/admin"
-                  component={() => (
-                     <Layout>
-                        <Admin />
-                     </Layout>
-                  )}
-               />
-               <Route
-                  path="/rosters"
-                  component={() => (
-                     <Layout>
-                        <Rosters />
-                     </Layout>
-                  )}
-               />
-               <Route
-                  path="/login"
-                  component={(props) => (
-                     <Layout>
-                        <Login
-                           {...props}
-                           toggleAuthenticated={this.toggleAuthenticated}
-                        />
-                     </Layout>
-                  )}
-               />
-            </Switch>
+            { this.state.pageLoading ? (
+               <div>
+                  <h3>Page is loading...</h3>
+               </div>
+            ) : (
+               <Switch>
+                  <Route
+                     exact
+                     path="/"
+                     component={() => (
+                        <Layout
+                           authenticated={this.state.authenticated}
+                           currentTeam={this.state.currentTeam}
+                        >
+                           <Standings
+                              currentTeam={
+                                 this.state.currentTeam
+                                    ? this.state.currentTeam.team
+                                    : null
+                              }
+                           />
+                        </Layout>
+                     )}
+                  />
+                  <Route
+                     path="/rules"
+                     component={() => (
+                        <Layout
+                           authenticated={this.state.authenticated}
+                           currentTeam={this.state.currentTeam}
+                        >
+                           <Rules />
+                        </Layout>
+                     )}
+                  />
+                  <ProtectedRoute
+                     authenticated={
+                        this.state.currentTeam
+                           ? this.state.currentTeam.asA
+                           : false
+                     }
+                     path="/admin"
+                     component={() => (
+                        <Layout
+                           authenticated={this.state.authenticated}
+                           currentTeam={this.state.currentTeam}
+                        >
+                           <Admin />
+                        </Layout>
+                     )}
+                  />
+                  <Route
+                     path="/rosters"
+                     component={() => (
+                        <Layout
+                           authenticated={this.state.authenticated}
+                           currentTeam={this.state.currentTeam}
+                        >
+                           <Rosters />
+                        </Layout>
+                     )}
+                  />
+                  <Route
+                     path="/login"
+                     component={(props) => (
+                        <Layout
+                           authenticated={this.state.authenticated}
+                           currentTeam={this.state.currentTeam}
+                        >
+                           <Login
+                              {...props}
+                              toggleAuthenticated={this.toggleAuthenticated}
+                           />
+                        </Layout>
+                     )}
+                  />
+                  <Route
+                     path="/logout"
+                     component={(props) => (
+                        <Layout
+                           authenticated={this.state.authenticated}
+                           currentTeam={this.state.currentTeam}
+                        >
+                           <Logout logMeOut={this.logMeOut} />
+                        </Layout>
+                     )}
+                  />
+               </Switch>
+            )}
          </main>
       )
    }

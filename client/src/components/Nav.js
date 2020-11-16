@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const Nav = () => (
+const Nav = ({authenticated, currentTeam}) => (
    <div>
       <nav>
          <NavLink activeClassName="nav-active" to="/">
@@ -13,12 +13,21 @@ const Nav = () => (
          <NavLink activeClassName="nav-active" to="/rules">
             Rules
          </NavLink>
-         <NavLink activeClassName="nav-active" to="/admin">
-            Admin
-         </NavLink>
+         {currentTeam && currentTeam.asA ? (
+            <NavLink activeClassName="nav-active" to="/admin">
+               Admin
+            </NavLink>
+         ) : null}
+         { authenticated ? (
+            <NavLink  activeClassName="nav-active" to="/password">Update Password</NavLink>
+         ) : null }
+         { authenticated ? (
+            <NavLink activeClassName="nav-active" to="/logout">Log Out</NavLink>
+         ) : (
          <NavLink activeClassName="nav-active" to="/login">
             Sign In
          </NavLink>
+         )}
       </nav>
    </div>
 )
