@@ -36,7 +36,6 @@ const GetRound = async ( req, resp ) => {
 }
 
 const GetTeams = async (req, resp) => {
-   console.log ( 'in RoundGetTeams')
    // return all teams in the given round
    const round = await Round.findOne( { round: req.params.round_id }).populate([
        { 
@@ -57,7 +56,6 @@ const UpdateFormation = async (req, resp) => {
    // we should only be updating the formation for the last round.
    const league = await League.findOne()
    const round = await Round.findOne({ round: league.currentRound })
-   console.log ( round)
    const formation = round.formation
    const position = parseInt(req.params.position)
    formation[ position ] = formation[position] + 1

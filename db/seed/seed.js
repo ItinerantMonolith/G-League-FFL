@@ -43,7 +43,6 @@ const getRosterDataByTeam = async (teamName) => {
       }
    }
 
-   // console.log('in getRsoterDataByTeam', newRoster)
    return newRoster
 }
 

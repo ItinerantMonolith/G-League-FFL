@@ -33,7 +33,6 @@ export default class ChangeFormation extends Component {
    handleAddPosition = async () => {
       const res = await __UpdateFormation ( this.state.selectedPosition )
 
-      console.log ( res )
       await this.getCurrentRound()
       alert ("Formation Updated")
    }

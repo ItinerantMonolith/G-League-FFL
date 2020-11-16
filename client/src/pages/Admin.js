@@ -45,7 +45,6 @@ export default class Admin extends Component {
       if (window.confirm('Do you really want to advance the week?')) {
          const res = await __AdvanceWeek()
          alert('Complete')
-         console.log(res)
       }
    }
 
