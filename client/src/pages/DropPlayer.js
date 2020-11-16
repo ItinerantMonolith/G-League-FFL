@@ -75,8 +75,8 @@ export default class DropPlayer extends Component {
          <div>
             <h2>Drop Players</h2>
             <div>
-            <label htmlFor="selTeam">Select a Team </label>
-            <select id="selTeam" onChange={this.handleSelectTeam}>
+            <label>Select a Team </label>
+            <select onChange={this.handleSelectTeam}>
                {this.state.teams.map((e) => (
                   <option value={e.team._id} key={e.team_id}>
                      {e.team.name}
@@ -85,8 +85,8 @@ export default class DropPlayer extends Component {
             </select>
             </div>
             <div>
-            <label htmlFor="selTeam">Select a Player</label>
-            <select id="selTeam" onChange={this.handleSelectPlayer}>
+            <label>Select a Player </label>
+            <select onChange={this.handleSelectPlayer}>
                {this.state.roster.map((e) => (
                   <option value={e._id} key={e._id}>
                      {e.name} {`(${e.position}/${e.nflTeam})`}

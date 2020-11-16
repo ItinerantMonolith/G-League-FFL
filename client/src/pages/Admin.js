@@ -8,6 +8,7 @@ import {
 import AddPlayer from './AddPlayer'
 import DropPlayer from './DropPlayer'
 import ChangeFormation from './ChangeFormation'
+import Confirm from '../components/Confirm'
 
 import '../styles/admin.css'
 
@@ -18,7 +19,8 @@ export default class Admin extends Component {
          currentRound: 0,
          currentWeek: 0,
          teams: [],
-         mode: 0,
+         mode: -1,
+         status: '',
       }
    }
 
@@ -42,30 +44,42 @@ export default class Admin extends Component {
    }
 
    handleAdvanceWeek = async () => {
-      if (window.confirm('Do you really want to advance the week?')) {
-         const res = await __AdvanceWeek()
-         alert('Complete')
-      }
+      const res = await __AdvanceWeek()
+      this.setState( { mode: -1, status: `Week updated.  Round: ${res.currentRound} Week: ${res.currentWeek}`})
    }
 
    handleLoadStats = async () => {
-      if (window.confirm('Do you really want to reload stats and rescore?')) {
-         const res = await __ScoreWeek(this.state.currentWeek)
-         alert(res)
-      }
+      this.setState({ status: '*** Stats Loading ***', mode: -1 })
+      const res = await __ScoreWeek(this.state.currentWeek)
+      console.log(res)
+
+      this.setState({ status: res })
    }
 
-
-   setAddPlayers = () => this.setState({ mode: 1 })
-
-   setDropPlayers = () => this.setState({ mode: 2 })
-
-   changeLineup = () => this.setState({ mode: 3 })
+   setMode = (mode) => this.setState({ mode: mode })
 
    render() {
       let content = ''
       switch (this.state.mode) {
+         case 0:
+            content = (
+               <Confirm
+                  msg="Do you really want to load stats for the week and rescore all players and teams?"
+                  onConfirm={this.handleLoadStats}
+               />
+            )
+            break
+
          case 1:
+            content = (
+               <Confirm
+                  msg="Do you really want to Advance the Week (and possibly the Round)?"
+                  onConfirm={this.handleAdvanceWeek}
+               />
+            )
+            break
+
+         case 2:
             content = (
                <AddPlayer
                   week={this.state.currentWeek}
@@ -74,7 +88,7 @@ export default class Admin extends Component {
             )
             break
 
-         case 2:
+         case 3:
             content = (
                <DropPlayer
                   week={this.state.currentWeek}
@@ -83,7 +97,7 @@ export default class Admin extends Component {
             )
             break
 
-         case 3:
+         case 4:
             content = (
                <ChangeFormation
                   week={this.state.currentWeek}
@@ -93,6 +107,7 @@ export default class Admin extends Component {
             break
 
          default:
+            content = this.state.status
             break
       }
       return (
@@ -100,11 +115,21 @@ export default class Admin extends Component {
             <h3>Admin Functions</h3>
             <div className="adminCenter">
                <div className="adminMenu">
-                  <button onClick={this.handleLoadStats} className="adminBtn">Load Stats</button>
-                  <button onClick={this.handleAdvanceWeek} className="adminBtn">Advance Week</button>
-                  <button onClick={this.setAddPlayers} className="adminBtn">Add Players</button>
-                  <button onClick={this.setDropPlayers} className="adminBtn">Drop Players</button>
-                  <button onClick={this.changeLineup} className="adminBtn">Change Formation</button>
+                  <button onClick={() => this.setMode(0)} className="adminBtn">
+                     Load Stats
+                  </button>
+                  <button onClick={() => this.setMode(1)} className="adminBtn">
+                     Advance Week
+                  </button>
+                  <button onClick={() => this.setMode(2)} className="adminBtn">
+                     Add Players
+                  </button>
+                  <button onClick={() => this.setMode(3)} className="adminBtn">
+                     Drop Players
+                  </button>
+                  <button onClick={() => this.setMode(4)} className="adminBtn">
+                     Change Formation
+                  </button>
                </div>
                <div className="adminContent">{content}</div>
             </div>

@@ -20,10 +20,7 @@ h2 {
 .adminBtn {
    width: 200px;
    height: 30px;
-   background-color:lightcoral;
-   border-radius: 8px;
-   margin: 10px auto;
-   font-family: 'Permanent Marker', cursive;
+
 }
 
 .addPlayers {
@@ -65,5 +62,9 @@ h2 {
 
 .adminCenter button {
    border: 2px solid red;
- 
+}
+
+.confirm {
+   text-align: center;
+   width: 400px;
 }

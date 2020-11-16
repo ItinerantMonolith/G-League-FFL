@@ -1,15 +1,41 @@
 body {
-   background-color: rgb(211, 198, 85);
+   background-color: #e3e3e3;
    font-family: 'Permanent Marker', cursive;
 }
 
 select {
    border-radius: 10px;
    font-family: 'Permanent Marker', cursive;
+   margin: 5px 5px;
 }
 
 button {
    font-family: 'Permanent Marker', cursive;
    border-radius: 7px;
    margin: 10px auto;
+   border: 2px solid red;
+   background-color:white;
+   color: black;
+
 }
+
+label {
+   margin: 5px 5px;
+}
+
+/* pallettes 
+--black-coffee: #2f2323ff;
+--dark-blue-gray: #666a86ff;
+--shadow-blue: #788aa3ff;
+--eggshell: #f4ebd9ff;
+--yellow-crayola: #ffe985ff;
+
+
+--dark-lava: #463f3aff;
+--middle-grey: #8a817cff;
+--pale-silver: #bcb8b1ff;
+--alabaster: #f4f3eeff;
+--melon: #e0afa0ff;
+
+*/
+
