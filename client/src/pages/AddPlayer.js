@@ -101,6 +101,7 @@ export default class AddPlayer extends Component {
       await __AddPlayerToRoster(this.state.roster_id, this.state.selectedPlayer)
 
       await this.refreshRoster()
+      await this.refreshPlayers()
    }
 
    render() {
