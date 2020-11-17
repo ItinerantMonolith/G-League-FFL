@@ -77,7 +77,7 @@ export default class Round extends Component {
                </div>
 
                {this.state.results.map((e) => (
-                  <div className={ this.props.currentTeam === e.team._id ? "round-team myteam" : "round-team"} key={e.team._id}>
+                  <div className={ this.props.currentTeam === e.team._id ? "round-team myTeam" : "round-team"} key={e.team._id}>
                      <div className="round-name">{e.team.name}</div>
                      <div>{e.week1}</div>
                      <div>{e.week2}</div>
