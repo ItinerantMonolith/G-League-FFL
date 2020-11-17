@@ -1,6 +1,6 @@
 h1 {
    font-size: 2em;
-   color: royalblue;
+   color: var(--color1);
    font-family: 'Permanent Marker', cursive;
 }
 
@@ -12,6 +12,11 @@ header {
     text-align: center;
     font-family: 'Permanent Marker', cursive;
     margin: 0px;
+    background-color: var(--color3);
+}
+
+main { 
+   background-color: var(--color2);
 }
 
 header nav {
@@ -23,6 +28,7 @@ header nav {
    align-items: center;
    height: 100%;
    margin: 10px auto;
+   
 }
 
 header nav a {
@@ -33,7 +39,7 @@ header nav a {
 
 header nav a:active,
 header nav a:hover {
-   color: royalblue;
+   color: var(--color2);
 }
 
 .standings {
@@ -49,10 +55,6 @@ header nav a:hover {
    cursor: pointer;
 }
 
-h2 {
-   font-family: 'Permanent Marker', cursive;
-}
-
 .logout {
    display: flex;
    flex-direction: row;
@@ -60,9 +62,9 @@ h2 {
 }
 
 .logout button {
-   border: 2px solid red;
-   background-color: black;
-   color: white;
+   border: 2px solid var(--color4);
+   background-color: var(--color5);
+   color: var(--color3);
    border-radius: 7px;
    margin: 0px 20px;
 }
@@ -77,3 +79,10 @@ h2 {
    margin: 10px 20px;
 }
 
+.nav-active {
+   color: var(--color4);
+}
+
+.myTeam {
+   color: var(--color6);
+}

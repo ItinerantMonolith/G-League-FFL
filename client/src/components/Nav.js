@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 const Nav = ({authenticated, currentTeam}) => (
    <div>
       <nav>
-         <NavLink activeClassName="nav-active" to="/">
+         <NavLink activeClassName="nav-active" exact to="/">
             Standings
          </NavLink>
          <NavLink activeClassName="nav-active" to="/rosters">

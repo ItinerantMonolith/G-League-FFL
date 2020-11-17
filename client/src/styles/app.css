@@ -1,11 +1,31 @@
+:root {
+   /* pallettes  */
+   
+   --bdazzled-blue: #3d5a80ff;
+   --pale-cerulean: #98c1d9ff;
+   --light-cyan: #e0fbfcff;
+   --burnt-sienna: #ee6c4dff;
+   --gunmetal: #293241ff;
+   --imperial-red: #e63946ff;
+   
+   --color1: var(--bdazzled-blue);
+   --color2: var(--pale-cerulean);
+   --color3: var(--light-cyan);
+   --color4: var(--burnt-sienna);
+   --color5: var(--gunmetal);
+   --color6: var(--imperial-red);
+}
+
 body {
-   background-color: #e3e3e3;
+   background-color: var(--color2);
    font-family: 'Permanent Marker', cursive;
+   margin: 0px;
 }
 
 select {
    border-radius: 10px;
    font-family: 'Permanent Marker', cursive;
+   background-color: var(--color3);
    margin: 5px 5px;
 }
 
@@ -13,29 +33,16 @@ button {
    font-family: 'Permanent Marker', cursive;
    border-radius: 7px;
    margin: 10px auto;
-   border: 2px solid red;
-   background-color:white;
-   color: black;
-
+   border: 2px solid var(--color4);
+   background-color: var(--color3);
+   color: var(--color5);
 }
 
 label {
    margin: 5px 5px;
 }
 
-/* pallettes 
---black-coffee: #2f2323ff;
---dark-blue-gray: #666a86ff;
---shadow-blue: #788aa3ff;
---eggshell: #f4ebd9ff;
---yellow-crayola: #ffe985ff;
-
-
---dark-lava: #463f3aff;
---middle-grey: #8a817cff;
---pale-silver: #bcb8b1ff;
---alabaster: #f4f3eeff;
---melon: #e0afa0ff;
-
-*/
-
+input {
+   background-color: var(--color3);
+   color: var(--color5);
+}

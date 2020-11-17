@@ -18,9 +18,8 @@ h2 {
 }
 
 .adminBtn {
-   width: 200px;
+   width: 150px;
    height: 30px;
-
 }
 
 .addPlayers {
@@ -58,10 +57,6 @@ h2 {
 
 .rControl {
    text-align: left;
-}
-
-.adminCenter button {
-   border: 2px solid red;
 }
 
 .confirm {
