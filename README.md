@@ -28,23 +28,23 @@ Initial Component Heirarchy Diagram
 
 ### User Stories - MVP
 The user must be able to...
-* view the current rosters for all teams
-* view the results for each week
-* review the rules and scoring system
-* add players to a team's roster.
-* drop players from a team's roster.
-* alter the lineup definition as the rounds progress
-* remove teams from competition as they are eliminated each round
-* advance the week and round as appropriate
-* make a copy of rosters when the week advances
-* load the most recent results/statistics and score the week
-* view an individual player's weekly results
-* see headshots and vital stats about players (height/weight/etc)
+- [x] view the results for each week
+- [x] review the rules and scoring system
+- [x] view the current rosters for all teams
+- [x] view an individual player's weekly results
+- [x] add players to a team's roster.
+- [x] drop players from a team's roster.
+- [x] alter the lineup definition as the rounds progress
+- [x] remove teams from competition as they are eliminated each round
+- [x] advance the week and round as appropriate
+- [x] make a copy of rosters when the week advances
+- [x] load the most recent results/statistics and score the week
+- [x] see headshots and vital stats about players (height/weight/etc)
 ***
 ### Future Updates / Backlog
-* support authorization 
-* restrict access to certain functions (loading scores, advancing week, etc) to the designated admin
-* post comments about the results of each week
+- [x] support authorization 
+- [x] restrict access to certain functions (loading scores, advancing week, etc) to the designated admin
+- [] post comments about the results of each week
 
 ***
 Project Tracking

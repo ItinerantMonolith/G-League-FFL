@@ -1,7 +1,8 @@
 h1 {
    font-size: 2em;
-   color: var(--color1);
+   color: var(--color2);
    font-family: 'Permanent Marker', cursive;
+   margin: 0px auto;
 }
 
 h4 {
@@ -12,11 +13,8 @@ header {
     text-align: center;
     font-family: 'Permanent Marker', cursive;
     margin: 0px;
-    background-color: var(--color3);
-}
-
-main { 
-   background-color: var(--color2);
+    background-color: var(--color1);
+    padding: 10px auto 10px auto;
 }
 
 header nav {
@@ -28,18 +26,31 @@ header nav {
    align-items: center;
    height: 100%;
    margin: 10px auto;
-   
 }
 
 header nav a {
-   color: #333;
-   /* font-size: 1.2rem; */
+   color: black;
    font-weight: 300;
 }
 
 header nav a:active,
 header nav a:hover {
    color: var(--color2);
+}
+
+header img {
+   height: 100px;
+}
+
+.headerBlock {
+   text-align: center;
+   margin: 0px 15%;
+   display: flex;
+   flex-direction: row;
+}
+
+.navArea {
+   padding: 5px;
 }
 
 .standings {
@@ -83,6 +94,6 @@ header nav a:hover {
    color: var(--color4);
 }
 
-.myTeam {
-   color: var(--color6);
+.myteam {
+   color: var(--color4);
 }

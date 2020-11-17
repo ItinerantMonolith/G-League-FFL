@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 const Nav = ({authenticated, currentTeam}) => (
-   <div>
+   <div className='navArea'>
       <nav>
          <NavLink activeClassName="nav-active" exact to="/">
             Standings
