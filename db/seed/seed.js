@@ -91,7 +91,7 @@ const seed = async () => {
       round: 1,
       week1: 4,
       week2: 5,
-      formation: [ 1,2,2,1,1 ]
+      formation: [ 1,2,2,1,1 ],
       comments: [],
       results: results,
    })
