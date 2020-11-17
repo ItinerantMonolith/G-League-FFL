@@ -9,7 +9,7 @@ const Layout = ({ children, authenticated, currentTeam }) => (
       <header>
          <div className="headerBlock">
             <div>
-            <img src={imgGuillotine} />
+               <img src={imgFootball} />
             </div>
             <div>
                <section className="landing">
@@ -21,7 +21,7 @@ const Layout = ({ children, authenticated, currentTeam }) => (
                </section>
             </div>
             <div>
-               <img src={imgFootball} />
+               <img src={imgGuillotine} />
             </div>
          </div>
          <Nav authenticated={authenticated} currentTeam={currentTeam} />
