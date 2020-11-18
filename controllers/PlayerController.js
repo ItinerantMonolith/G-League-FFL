@@ -19,7 +19,6 @@ const GetPlayers = async (req, resp) => {
    let playerList = []
    rosters.forEach ( e => playerList = [...playerList, ...e.players] )
 
-   // const team = await NFLTeam.findById ( req.params.nflTeam )
    const pos = req.params.position ? req.params.position.toUpperCase() : 'QB'
    const players = await Player.find({
       team: req.params.nflTeam,

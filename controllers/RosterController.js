@@ -46,12 +46,6 @@ const RemovePlayer = async (req, resp) => {
    }
 }
 
-/* do we ever need to get a roster by ID? 
-const GetRoster = async (req, resp) => {
-   const roster = await Roster.findById( req.params.roster_id).sort( "sortPos name" )
-   resp.send( roster )
-}
-*/
 
 // get a roster by team and week...sort by position, player name
 const GetRoster = async (req, resp) => {

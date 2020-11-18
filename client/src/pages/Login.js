@@ -17,8 +17,9 @@ export default class Login extends Component {
       this.loadTeams()
    }
 
+   // all teams can login, even ones who are eliminated
    loadTeams = async () => {
-      const teams = await __GetTeams(0)
+      const teams = await __GetTeams(1)
       teams.sort((a, b) => (a.team.name < b.team.name ? -1 : 1))
       await this.setState({
          teams: teams,

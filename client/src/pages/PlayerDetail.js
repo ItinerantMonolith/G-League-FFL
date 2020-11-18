@@ -32,7 +32,7 @@ const PlayerDetail = (props) => {
                      </div>
                      <div className="info">
                         <span className="infoLabel">Experience: </span>
-                        {player.experience}
+                        { player.experience > 0 ? player.experience : "Rookie" }
                      </div>
                   </div>
                </div>
