@@ -20,7 +20,7 @@ export default class ChangeFormation extends Component {
       const res = await __GetRound(this.props.round)
 
       //  cap the positions correctly
-      const maxPos = [2, 3, 3, 2, 2]
+      const maxPos = [2, 3, 3, 2, 3]
       const canChange = Array(5)
       res.formation.forEach((e, i) => (canChange[i] = e < maxPos[i]))
 

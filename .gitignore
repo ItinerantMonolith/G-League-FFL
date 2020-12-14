@@ -3,6 +3,6 @@
 package-lock.json
 .env
 
-/controllers/controllerNotes.md
-/controllers/ControllerTemplate.js
-/routes/RouteTemplate.js
+controllers/controllerNotes.md
+controllers/ControllerTemplate.js
+routes/RouteTemplate.js
